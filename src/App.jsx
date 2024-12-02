@@ -26,6 +26,9 @@ import ProdukSerum from './ProdukSerum.jsx';
 import ProdukSunscreen from './ProdukSunscreen.jsx';
 import ProdukMasker from './ProdukMasker.jsx';
 import Recom from './Recom.jsx'
+import Ulasan_Produk from'./ulasan_produk.jsx';
+import DeskripsiProdukRecom from './DeskripsiProdukRecom.jsx';
+import Profil_Edit from './profil_edit.jsx';
 
 
 const App = () => {
@@ -57,6 +60,9 @@ const App = () => {
         <Route path="/consul" element={<Consul />} />
         <Route path="/ulasan_ahli" element={<Ulasan_Ahli />} />
         <Route path="/Recom" element={<Recom />} />
+        <Route path="/ulasan_produk" element={<Ulasan_Produk />} />
+        <Route path="/DeskripsiProdukRecom" element={<DeskripsiProdukRecom />} />
+        <Route path="/profil_edit" element={<Profil_Edit />} />
         {/* Add other routes if needed */}
       </Routes>
     </div>

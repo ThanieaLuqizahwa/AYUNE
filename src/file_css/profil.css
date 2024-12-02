@@ -21,7 +21,7 @@
 
 .profile-page .header-divider {
     position: relative;
-    height: 50px;
+    height: 80px;
     background-color: #E3F2ED;
     display: flex;
     align-items: center;
@@ -31,10 +31,10 @@
 .profile-page .header-divider-text {
     position: absolute;
     background-color: #E3F2ED;
-    padding: 0 20px;
     color: #3b3b3b;
     font-size: 40px; /* Updated font size */
     font-weight: bold;
+    height: 60px;
 }
 
 .profile-page .luar{

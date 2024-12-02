@@ -1,8 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import './file_css/va.css'; // Pastikan path CSS benar
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import "./file_css/va.css"; // Pastikan path CSS benar
 
 const Va = () => {
+  const [showPopup, setShowPopup] = useState(false); // State untuk mengontrol pop-up
+  const navigate = useNavigate();
+
+  const handleCopyClick = () => {
+    console.log("Tombol Bayar ditekan"); // Menambahkan console.log untuk memastikan tombol ditekan
+    setShowPopup(true); // Menampilkan pop-up
+  };
+
+  const handleRedirect = () => {
+    navigate("/consul"); // Mengarahkan ke halaman consul
+  };
+
   // Set initial time for 24 hours in seconds
   const [timeLeft, setTimeLeft] = useState(86400);
 
@@ -18,9 +30,9 @@ const Va = () => {
 
   // Function to format time in HH:MM:SS
   const formatTime = (seconds) => {
-    const hours = String(Math.floor(seconds / 3600)).padStart(2, '0');
-    const minutes = String(Math.floor((seconds % 3600) / 60)).padStart(2, '0');
-    const remainingSeconds = String(seconds % 60).padStart(2, '0');
+    const hours = String(Math.floor(seconds / 3600)).padStart(2, "0");
+    const minutes = String(Math.floor((seconds % 3600) / 60)).padStart(2, "0");
+    const remainingSeconds = String(seconds % 60).padStart(2, "0");
     return `${hours}:${minutes}:${remainingSeconds}`;
   };
 
@@ -33,14 +45,24 @@ const Va = () => {
         </div>
         <nav>
           <ul>
-            <li><Link to="/HomeAfterLogin">BERANDA</Link></li>
-            <li><Link to="/AboutUs_Login">TENTANG KAMI</Link></li>
-            <li><Link to="Produk">PRODUK</Link></li>
-            <li><Link to="/Ahli">KONSULTASI</Link></li>
+            <li>
+              <Link to="/HomeAfterLogin">BERANDA</Link>
+            </li>
+            <li>
+              <Link to="/AboutUs_Login">TENTANG KAMI</Link>
+            </li>
+            <li>
+              <Link to="Produk">PRODUK</Link>
+            </li>
+            <li>
+              <Link to="/Ahli">KONSULTASI</Link>
+            </li>
           </ul>
         </nav>
         <div className="auth-buttons">
-        <Link to="/profil"><button>Ayyunie</button></Link>
+          <Link to="/profil">
+            <button>Ayyunie</button>
+          </Link>
         </div>
       </header>
 
@@ -62,7 +84,11 @@ const Va = () => {
         </div>
         <div className="virtual-account-section">
           <p>
-            Mohon pastikan Anda telah membaca dan memahami <a href="#">Syarat & Ketentuan</a> serta <a href="#">Kebijakan Privasi</a> kami sebelum melanjutkan pembayaran. Setelah pembayaran berhasil, transaksi dianggap final dan tidak dapat dikembalikan.
+            Mohon pastikan Anda telah membaca dan memahami{" "}
+            <a href="#">Syarat & Ketentuan</a> serta{" "}
+            <a href="#">Kebijakan Privasi</a> kami sebelum melanjutkan
+            pembayaran. Setelah pembayaran berhasil, transaksi dianggap final
+            dan tidak dapat dikembalikan.
           </p>
           <h4>Waktu Tersisa:</h4>
           <h2 id="timer">{formatTime(timeLeft)}</h2> {/* Timer display */}
@@ -71,16 +97,41 @@ const Va = () => {
             <h4>Kode Virtual Account:</h4>
             <h1 className="virtual-account-number">1234567891000001</h1>
           </div>
-          <p className="bila">Bila sudah melakukan pembayaran harap refresh halaman web</p>
+          <p className="bila">
+            Bila sudah melakukan pembayaran harap refresh halaman web
+          </p>
         </div>
         <div className="virtual-account-section">
-        <Link to="/consul"><button className="copy-btn">Bayar</button></Link>
+          <button type="button" className="copy-btn" onClick={handleCopyClick}>
+            BAYAR
+          </button>
         </div>
       </main>
 
+      {/* Popup */}
+      {showPopup && (
+        <div id="secondPopup" className="popup-overlay">
+          <div className="popup-content">
+            <div className="popup-header">Pembayaran Berhasil!</div>
+            <div className="popup-title">
+              <img
+                src="assets/images/iconbayar.png"
+                alt="Pembayaran Berhasil"
+                className="popup-image"
+              />
+            </div>
+            <div className="popup-button-container">
+              <button className="copy-btn" onClick={handleRedirect}>
+                Mulai Sesi
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Footer */}
       <div className="footer-separator"></div>
-      <footer>  
+      <footer>
         <div className="footer-container">
           <div className="footer-logo">
             <img src="assets/images/logobesar.svg" alt="Logo Ayune" />
@@ -92,23 +143,37 @@ const Va = () => {
               <p>Instagram: @ayunneconsultation</p>
               <p>Email: ayunneconsultation@gmail.com</p>
               <p>
-                <strong>Jam operasional:</strong><br />
-                Senin-Jumat: 10:00 - 21:00 WIB<br />
+                <strong>Jam operasional:</strong>
+                <br />
+                Senin-Jumat: 10:00 - 21:00 WIB
+                <br />
                 Sabtu: 10:00 - 17:00 WIB
               </p>
             </div>
             <div className="account">
               <h3>Akun Saya</h3>
-              <p><Link to="/profil">Profil</Link></p>
-              <p><Link to="/signup">Daftar</Link></p>
-              <p><Link to="/Login">Masuk</Link></p>
+              <p>
+                <Link to="/profil">Profil</Link>
+              </p>
+              <p>
+                <Link to="/signup">Daftar</Link>
+              </p>
+              <p>
+                <Link to="/Login">Masuk</Link>
+              </p>
             </div>
             <div className="social-media">
               <h3>Ikuti Kami:</h3>
               <div className="social-icons">
-                <a href="#"><img src="assets/images/instagram.png" alt="Instagram" /></a>
-                <a href="#"><img src="assets/images/twt.png" alt="Twitter" /></a>
-                <a href="#"><img src="assets/images/yt.png" alt="YouTube" /></a>
+                <a href="#">
+                  <img src="assets/images/instagram.png" alt="Instagram" />
+                </a>
+                <a href="#">
+                  <img src="assets/images/twt.png" alt="Twitter" />
+                </a>
+                <a href="#">
+                  <img src="assets/images/yt.png" alt="YouTube" />
+                </a>
               </div>
             </div>
           </div>

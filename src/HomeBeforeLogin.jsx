@@ -24,8 +24,8 @@ const HomeBeforeLogin = () => {
 
       <section className="hero">
         <div className="hero-text">
-          <h1>Capai tujuan kulit Anda bersama kami</h1>
-          <p>Segera daftarkan diri Anda dan ketahui masalah kulit Anda bersama dokter kecantikan terpercaya dari kami</p>
+          <h1>Raih tujuan kulit Anda bersama kami</h1>
+          <p>Segera daftarkan diri Anda dan ketahui masalah kulit Anda bersama dokter kecantikan terpercaya dari Kami</p>
           <div className="buttons">
             <Link to="/Login"><button>Masuk</button></Link>
             <Link to="/signup"><button>Daftar</button></Link>
@@ -38,7 +38,7 @@ const HomeBeforeLogin = () => {
 
       <section className="products">
         <div className="product-section">
-          <h2 className="product-title">Produk Kecantikan Terpopuler</h2>
+          <h2 className="product-title">Produk Skincare yang Sedang Tren</h2>
           <div className="auth-buttons">
             <Link to="/produk" className="btn-right"><button>Selengkapnya &gt;</button></Link>
           </div>

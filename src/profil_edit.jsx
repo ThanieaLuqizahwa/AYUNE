@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './file_css/profil.css';
 
-const ProfilePage = () => {
+const Profil_Edit = () => {
   const [showPopup, setShowPopup] = useState(false);
   const navigate = useNavigate();
 
@@ -69,9 +69,12 @@ const ProfilePage = () => {
             <label htmlFor="gender">Jenis Kelamin</label>
             <input id="gender" type="text" placeholder="Masukan Gender Anda" />
 
-            <button type="button" className="logout-btn" onClick={togglePopup}>
-              Keluar Akun
+            <Link to="/profil">
+            <button type="button" className="logout-btn">
+              Simpan Perubahan
             </button>
+            </Link>    
+            
           </form>
         </div>
 
@@ -146,4 +149,4 @@ const ProfilePage = () => {
   );
 };
 
-export default ProfilePage;
+export default Profil_Edit;

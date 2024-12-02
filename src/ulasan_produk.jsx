@@ -2,9 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './file_css/ulasan_produk.css'; // Make sure the CSS path is correct
 
-const ulasan_ahli = () => {
+const ulasan_produk = () => {
   return (
-    <div className="ulasanahli_page">
+    <div className="ulasan-produk-page">
       <header>
         <div className="logo">
           <img src="assets/images/logobesar.svg" alt="Logo Ayune" />
@@ -13,7 +13,7 @@ const ulasan_ahli = () => {
           <ul>
             <li><Link to="/HomeAfterLogin">BERANDA</Link></li>
             <li><Link to="/AboutUs_Login">TENTANG KAMI</Link></li>
-            <li><Link to="#">PRODUK</Link></li>
+            <li><Link to="/Produk">PRODUK</Link></li>
             <li><Link to="/Ahli">KONSULTASI</Link></li>
           </ul>
         </nav>
@@ -24,7 +24,10 @@ const ulasan_ahli = () => {
 
       {/* content */}
       <main>
-        <h1>Berikan Ulasan</h1>
+        <div className='title'>
+          <h1>Berikan Ulasan</h1>
+        </div>
+        <div className='coba'>
         <section class="form-section">
             <label>Dimana anda membeli produk tersebut?</label>
             <div class="options">
@@ -51,6 +54,7 @@ const ulasan_ahli = () => {
 
             <button class="submit-button" onclick="showsuccessPopup()">Unggah</button>
         </section>
+        </div>
     </main>
 
     <div id="popupOverlay" class="popup-overlay"></div>
@@ -67,7 +71,7 @@ const ulasan_ahli = () => {
 
       {/* footer */} 
       <div className="footer-separator"></div>
-      <footer className="aboutus-footer"> 
+    <footer className="aboutus-footer">
         <div className="footer-container">
           <div className="footer-logo">
             <img src="assets/images/logobesar.svg" alt="Logo Ayune" />
@@ -108,4 +112,4 @@ const ulasan_ahli = () => {
   );
 };
 
-export default ulasan_ahli;
+export default ulasan_produk;

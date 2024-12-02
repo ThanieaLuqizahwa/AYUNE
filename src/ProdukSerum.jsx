@@ -11,7 +11,7 @@ const ProdukSerum = () => {
         </div>
         <nav>
           <ul>
-            <li><Link to="/">BERANDA</Link></li>
+            <li><Link to="/HomeAfterLogin">BERANDA</Link></li>
             <li><Link to="/AboutUs_Login">TENTANG KAMI</Link></li>
             <li><Link to="/Produk">PRODUK</Link></li>
             <li><Link to="/Ahli">KONSULTASI</Link></li>

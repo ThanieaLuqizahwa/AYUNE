@@ -73,7 +73,7 @@ const Opsibayar = () => {
               </div>
               <div className="coins-total">
                 <p>Saldo</p>
-                <p>Rp. 185.000</p>
+                <p>3.500</p>
               </div>
               <input type="radio" name="payment-method" value="coins" />
             </div>

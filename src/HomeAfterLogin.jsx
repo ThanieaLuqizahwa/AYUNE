@@ -24,7 +24,8 @@ const HomeAfterLogin = () => {
 
       <section className="hero">
         <div className="hero-text">
-          <h1>Capai tujuan kulit Anda bersama kami</h1>
+          <h1>Raih tujuan kulit Anda
+          bersama kami</h1>
           <div className="buttons">
             <Link to="/Ahli"><button>KONSULTASI</button></Link>
           </div>
@@ -36,7 +37,7 @@ const HomeAfterLogin = () => {
 
       <section className="products">
         <div className="product-section">
-          <h2 className="product-title">Produk Kecantikan Terpopuler</h2>
+          <h2 className="product-title">Produk Skincare yang Sedang Tren</h2>
           <div className="auth-buttons">
             <Link to="/produk" className="btn-right"><button>Selengkapnya &gt;</button></Link>
           </div>
