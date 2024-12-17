@@ -1,54 +1,46 @@
 import React from "react";
 import { CiSearch } from "react-icons/ci";
 import { IoMdArrowDropright } from "react-icons/io";
+import { useSkinProblem } from "./context/SkinProblemContext";
 import { Link } from "react-router-dom";
+import Header from "./components/HeaderAfterLogin";
+import Footer from "./components/Footer";
 import "./file_css/recom.css";
 
 const Produk = () => {
+  const { skinType, skinProblem, age } = useSkinProblem();
+
   return (
-    <div className="recom-page">
-      <header>
-        <div className="logo">
-          <img src="assets/images/logobesar.svg" alt="Logo Ayune" />
-        </div>
-        <nav>
-          <ul>
-            <li><Link to="/HomeAfterLogin">BERANDA</Link></li>
-            <li><Link to="/AboutUs_Login">TENTANG KAMI</Link></li>
-            <li><Link to="/Produk">PRODUK</Link></li>
-            <li><Link to="/Ahli">KONSULTASI</Link></li>
-          </ul>
-        </nav>
-        <div className="auth-buttons">
-          <Link to="/profil">
-            <button>Ayyunie</button>
-          </Link>
-        </div>
-      </header>
-      <div className="space-y-[30px] bg-white">
+    <div>
+      {/* header */}
+      <Header />
+      
+      <div className="recom-page">
         {/* Section Rekomendasi */}
         <section className="bg-[#E3F2ED] py-[5px]">
-          <div className="flex gap-[89px] px-[120px]">
+          <div className="flex gap-[89px]">
             <p className="title">REKOMENDASI</p>
           </div>
         </section>
-        <section className="recommendations-section">
+        <section className="bg-[#ffffff]">
           <div className="sub-title">
-            <h2>Masalah Kulit</h2>
+          <h2>Masalah Kulit</h2>
           </div>
           <div className="skin-problems">
             <div>
-              Tipe Kulit: <span className="badge">Kulit Kering</span>
+              Tipe Kulit: <span className="badge">{skinType || "Tidak ada data"}</span>
             </div>
             <div>
-              Kondisi Kulit:{" "}
-              <span className="badge">Kering, Kulit Sensitif</span>
+              Masalah Kulit: <span className="badge">{skinProblem || "Tidak ada data"}</span>
             </div>
             <div>
-              Umur: <span className="badge">23</span>
+              Usia: <span className="badge">{age || "Tidak ada data"}</span>
             </div>
           </div>
         </section>
+      </div>
+      <div>
+        
         {/* Section Pembersih */}
         <section>
           <div className="flex justify-between px-[120px] py-[6px] bg-[#E3F2ED]">
@@ -406,45 +398,9 @@ const Produk = () => {
         </section>
       </div>
 
-       {/* footer */}
-      <footer className="aboutus-footer">
-        <div className="footer-separator"></div>
-        <div className="footer-container">
-          <div className="footer-logo">
-            <img src="assets/images/logobesar.svg" alt="Logo Ayune" />
-          </div>
-          <div className="footer-content">
-            <div className="customer-care">
-              <h3>Layanan Pelanggan</h3>
-              <p>Whatsapp: +62-851-6564-4356</p>
-              <p>Instagram: @ayunneconsultation</p>
-              <p>Email: ayunneconsultation@gmail.com</p>
-              <p>
-                <strong>Jam operasional:</strong><br />
-                Senin-Jumat: 10:00 - 21:00 WIB<br />
-                Sabtu: 10:00 - 17:00 WIB
-              </p>
-            </div>
-            <div className="account">
-              <h3>Akun Saya</h3>
-              <p><Link to="/profil">Profil</Link></p>
-              <p><Link to="/signup">Daftar</Link></p>
-              <p><Link to="/Login">Masuk</Link></p>
-            </div>
-            <div className="social-media">
-              <h3>Ikuti Kami:</h3>
-              <div className="social-icons">
-                <a href="#"><img src="assets/images/instagram.png" alt="Instagram" /></a>
-                <a href="#"><img src="assets/images/twt.png" alt="Twitter" /></a>
-                <a href="#"><img src="assets/images/yt.png" alt="YouTube" /></a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="footer-bottom">
-          <p>©AYUNNE, 2024. ALL RIGHTS RESERVED</p>
-        </div>
-      </footer>
+      <div className="footer-separator"></div>
+      {/* Footer */}
+      <Footer />
     </div>
   );
 };

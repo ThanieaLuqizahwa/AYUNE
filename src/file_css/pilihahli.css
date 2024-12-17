@@ -92,22 +92,20 @@ header {
 
 /* Subtitle */
 .ahli-page-container .sub-title-h2 {
-    margin-top: 45px;
+    margin-top: 15px;
     text-align: left;
-    margin-left: 120px;
-    margin-bottom: 10px;
+    margin-left: 60px;
+    font-size:32px;
 }
 
 .ahli-page-container .sub-title-h4 h4{
     text-align: left;
-    margin-left: 120px;
+    margin-left: 60px;
 }
 
 /* Expert Cards */
 .ahli-page-container .all-cards {
     max-width: 100%;
-    height: auto;
-    padding: 10px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;

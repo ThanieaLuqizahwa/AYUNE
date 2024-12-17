@@ -1,28 +1,55 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import Header from "./components/HeaderAfterLogin";
+import Footer from "./components/Footer";
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
-import { IoMdArrowDropright } from 'react-icons/io';
-import { TiStar } from 'react-icons/ti';
-import { Link } from 'react-router-dom';
+
+const reviews = [ 
+  { name: 'Mila S.009',
+    date: '22/10/2024',
+    rating: 4,
+    age: 27,
+    skinType: 'Kombinasi',
+    skinIssue: 'Sangat kering,Sensitif',
+    skinProblem: 'Sangat Kering',
+    comment: 'Bagussss.. cocok di kulit. Gentle wash bikin kulit gak kering. Best deh. Cocok untuk semua jenis kulit. Suka banget sama produk ini aku repurchasevterus . Yuk rekomen banget untuk semuanya yang punya kulit sensitif sama produk yang berat' 
+  },
+  { name: 'Sarah', 
+    date: '01/10/2024', 
+    rating: 5, 
+    age: 16, 
+    skinType: 'Kering', 
+    skinIssue: 'Sangat kering, Sensitif', 
+    skinProblem: 'Sansitif',
+    comment: 'Udah 3 tahun selalu pakai cetaphil yg gentle dan sekarang pingin coba yg hydrating foaming semoga cocok dan beneran bagus untuk hydarasi kulit' 
+  }, 
+  { name: 'Diandrea D.', 
+    date: '27/09/2024', 
+    rating: 5, 
+    age: 23, 
+    skinType: 'Kombinasi', 
+    skinIssue: 'Sensitif',
+    skinProblem: 'Bruntusan',
+    comment: 'Aku pemakaian yang ke 3 bulan ini. jujur cocok banget bikin kulit aku lembab after cuci muka. juga ada perubahan kulit aku mendingan sama bruntusan dan jadi cerahan. pokoknya approve!' 
+  }, 
+];
 
 const DeskripsiProdukRecom = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false); // Mengelola modal
+  const navigate = useNavigate(); // Hook untuk navigasi
+
+  const handleModal = (action) => {
+    if (action === 'mengerti') {
+      navigate('/ulasan_produk'); // Navigasi ke halaman ulasan
+    }
+    setIsModalOpen(false); // Tutup modal
+  };
+
   return (
     <div className="profile-page">
-      <header>
-        <div className="logo">
-          <img src="/assets/images/logobesar.svg" alt="Logo Ayune" />
-        </div>
-        <nav>
-          <ul>
-            <li><Link to="/HomeAfterLogin">BERANDA</Link></li>
-            <li><Link to="/AboutUs_Login">TENTANG KAMI</Link></li>
-            <li><Link to="/Produk">PRODUK</Link></li>
-            <li><Link to="/Ahli">KONSULTASI</Link></li>
-          </ul>
-        </nav>
-        <div className="auth-buttons">
-          <Link to="/profil"><button>Ayyunie</button></Link>
-        </div>
-      </header>
+      {/* header */}
+      <Header />
+      
       <div className='space-y-[30px] bg-white'>
         <section className='bg-[#E3F2ED] py-[5px]'>
           <div className='flex gap-[89px] px-[120px] justify-center'>
@@ -80,183 +107,97 @@ const DeskripsiProdukRecom = () => {
                     <img src="/assets/images/3b.png" alt="3b" />
                     <img src="/assets/images/4b.png" alt="4b" />
                     <img src="/assets/images/5b.png" alt="5b" />
-
                 </div>
                 <p className='font-bold text-[24.24px]'>4.7 / 5</p>
             </div>
           </div>
-          <Link to="/ulasan_produk">
-            <button className='px-[11px] bg-[#147A63] text-white font-bold rounded-full h-[37px] w-[200px] py-[50px] text-[20px] absolute right-[120px] top-[16px]'>Berikan Ulasan</button>
-          </Link>
+          
+          <button className='px-[11px] bg-[#147A63] text-white font-bold rounded-full h-[37px] w-[200px] py-[50px] text-[20px] absolute right-[120px] top-[16px]' onClick={() => setIsModalOpen(true)} // Pastikan fungsi ini dipanggil
+          >
+            Berikan Ulasan
+          </button>
+
         </section>
-        <section className='px-[121px] flex items-center justify-center pb-[18px]'>
-            <div>
-                <div className='bg-[#E3F2ED] w-[1199px] rounded-[15px] pl-[17px] py-[17px] pr-[27px] flex justify-start gap-[47px] mb-[10px] '>
-                    <div className='flex gap-[8px] items-center'>
-                        <img src="/assets/images/cap1.png" className='rounded-full w-[75px] h-[75px] object-cover' alt="expert6" />
-                        <div>
-                            <div>
-                                <div className='flex justify-between font-bold text-[20px] text-[#333333]'>
-                                    <p>Mila S.009</p>
-                                    <p className='flex items-center'><TiStar  className='text-[#147A63] text-xl'/>4</p>
-                                </div>
-                                <p className='text-[10px]'>22/10/2024</p>
-                            </div>
-                            <div className='flex gap-x-[8px] text-[#333333]'>
-                                <div className='w-fit text-[10px]'>
-                                    <p className='font-bold'>Umur</p>
-                                    <p>27</p>
-                                </div>
-                                <div className='w-fit text-[10px]'>
-                                    <p className='font-bold'>Tipe Kulit</p>
-                                    <p>Kombinasi</p>
-                                </div>
-                                <div className='w-fit text-[10px]'>
-                                    <p className='font-bold'>Masalah Kulit</p>
-                                    <p>Sangat Kering</p>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    <p className='text-[12px] w-[537px] flex items-center justify-center'>
-                    Bagussss.. cocok di kulit. Gentle wash bikin kulit gak kering. Best deh. Cocok untuk semua jenis kulit. Suka banget sama produk ini aku repurchasevterus . Yuk rekomen banget untuk semuanya yang punya kulit sensitif sama produk yang berat
-                    </p>
-                    <div className='flex gap-[15px] items-center'>
-                        <img src="/assets/images/imagecetaphil1.png" className='rounded-lg w-[75px] h-[75px] object-cover' alt="imagecetaphil1" />
-                        <img src="/assets/images/imagecetaphil2.png" className='rounded-lg w-[75px] h-[75px] object-cover' alt="imagecetaphil2" />
-                        <img src="/assets/images/imagecetaphil3.png" className='rounded-lg w-[75px] h-[75px] object-cover' alt="imagecetaphil3" />
-
-                    </div>
+        {/* kumpulan ulasan */}
+        <section className='ulas'>
+            {/* ulasan 1 */}
+            <div className="review-container">
+              {reviews.map((review, index) => (
+                <div key={index} className="review-card">
+                  <div className="review-left">
+                    <h3 className="review-name">{review.name}</h3>
+                    <p className="review-date">{review.date}</p>
+                    <div className="review-rating">
+                      {"★".repeat(review.rating)}{" "}
+                    <span className="empty-stars">
+                      {"★".repeat(5 - review.rating)}
+                    </span>
+                  </div>
                 </div>
-                <div className='bg-[#E3F2ED] w-[1199px] rounded-[15px] pl-[17px] py-[17px] pr-[27px] flex justify-start gap-[47px] mb-[10px] '>
-                    <div className='flex gap-[8px] items-center'>
-                        <img src="/assets/images/cap2.png" className='rounded-full w-[75px] h-[75px] object-cover' alt="expert6" />
-                        <div>
-                            <div>
-                                <div className='flex justify-between font-bold text-[20px] text-[#333333]'>
-                                    <p>Sarah</p>
-                                    <p className='flex items-center'><TiStar  className='text-[#147A63] text-xl'/>5</p>
-
-                                </div>
-                                <p className='text-[10px]'>01/10/2024</p>
-                            </div>
-                            <div className='flex gap-x-[8px] text-[#333333]'>
-                                <div className='w-fit text-[10px]'>
-                                    <p className='font-bold'>Umur</p>
-                                    <p>16</p>
-                                </div>
-                                <div className='w-fit text-[10px]'>
-                                    <p className='font-bold'>Tipe Kulit</p>
-                                    <p>Kering</p>
-                                </div>
-                                <div className='w-fit text-[10px]'>
-                                    <p className='font-bold'>Masalah Kulit</p>
-                                    <p>Sensitif</p>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    <p className='text-[12px] w-[537px] flex items-center justify-center'>
-                    Udah 3 tahun selalu pakai cetaphil yg gentle dan sekarang pingin coba yg hydrating foaming semoga cocok dan beneran bagus untuk hydarasi kulit
-                    </p>
-                    <div className='flex gap-[15px] items-center'>
-                        <img src="/assets/images/imagecetaphil4.png" className='rounded-lg w-[75px] h-[75px] object-cover' alt="imagecetaphil4" />
-
-                    </div>
-                </div>
-                <div className='bg-[#E3F2ED] w-[1199px] rounded-[15px] pl-[17px] py-[17px] pr-[27px] flex justify-start gap-[47px] mb-[10px] '>
-                    <div className='flex gap-[8px] items-center'>
-                        <img src="/assets/images/cap3.png" className='rounded-full w-[75px] h-[75px] object-cover' alt="expert6" />
-                        <div>
-                            <div>
-                                <div className='flex justify-between font-bold text-[20px] text-[#333333]'>
-                                    <p>Diandrea D.</p>
-                                    <p className='flex items-center'><TiStar  className='text-[#147A63] text-xl'/>5</p>
-                                </div>
-                                <p className='text-[10px]'>27/09/2024</p>
-                            </div>
-                            <div className='flex gap-x-[8px] text-[#333333]'>
-                                <div className='w-fit text-[10px]'>
-                                    <p className='font-bold'>Umur</p>
-                                    <p>23</p>
-                                </div>
-                                <div className='w-fit text-[10px]'>
-                                    <p className='font-bold'>Tipe Kulit</p>
-                                    <p>Kombinasi</p>
-                                </div>
-                                <div className='w-fit text-[10px]'>
-                                    <p className='font-bold'>Masalah Kulit</p>
-                                    <p>Beruntusan</p>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    <p className='text-[12px] w-[537px] flex items-center justify-center'>
-                    Aku pemakaian yang ke 3 bulan ini. jujur cocok banget bikin kulit aku lembab after cuci muka. juga ada perubahan kulit aku mendingan sama bruntusan dan jadi cerahan. pokoknya approve!
-                    </p>
-                    <div className='flex gap-[15px] items-center'>
-                        <img src="/assets/images/imagecetaphil5.png" className='rounded-lg w-[75px] h-[75px] object-cover' alt="imagecetaphil5" />
-
-                    </div>
-                </div>
-                <div className='flex items-center justify-center gap-[17px]'>
-                    <FaChevronLeft className='text-xl' />
-                    <div className='flex gap-[7px]'>
-                    <p className="flex items-center justify-center rounded-full bg-[#147A63] text-white text-[24px] w-[50px] h-[50px] font-bold">
-                        1
-                    </p>
-                    <p className="flex items-center justify-center rounded-full bg-[#E3F2ED] text-black text-[24px] w-[50px] h-[50px] font-bold">
-                        2
-                    </p>
-
-                    </div>
-                    <FaChevronRight className='text-xl' />
-                </div>
+            <div className="review-center">
+              <p>
+                <strong>Umur:</strong> {review.age}
+              </p>
+              <p>
+                <strong>Tipe Kulit:</strong> {review.skinType}
+              </p>
+              <p>
+                <strong>Masalah Kulit:</strong> {review.skinProblem}
+              </p>
             </div>
+            <div className="review-right">
+              <p className="review-comment">{review.comment}</p>
+            </div>
+          </div>
+          ))}
+          {/* swipe */}
+          <div className='flex items-center justify-center gap-[17px]'>
+              <FaChevronLeft className='text-xl' />
+              <div className='flex gap-[7px]'>
+              <p className="flex items-center justify-center rounded-full bg-[#147A63] text-white text-[24px] w-[50px] h-[50px] font-bold">
+                1
+              </p>
+              </div>
+              <FaChevronRight className='text-xl' />
+            </div>
+          </div>
         </section>
       </div>
 
-      <footer className="aboutus-footer">
-        <div className="footer-separator"></div>
-        <div className="footer-container">
-          <div className="footer-logo">
-            <img src="/assets/images/logobesar.svg" alt="Logo Ayune" />
-          </div>
-          <div className="footer-content">
-            <div className="customer-care">
-              <h3>Layanan Pelanggan</h3>
-              <p>Whatsapp: +62-851-6564-4356</p>
-              <p>Instagram: @ayunneconsultation</p>
-              <p>Email: ayunneconsultation@gmail.com</p>
+      {/* popup */}
+      {isModalOpen && (
+        <div className='popup-overlay'>
+          <div className='popup-content-ulas'>
+            <h3 className='popup-header'>Simpan ulasan anda dan dapatkan koin</h3>
+            <div className='posisi'>
               <p>
-                <strong>Jam operasional:</strong><br />
-                Senin-Jumat: 10:00 - 21:00 WIB<br />
-                Sabtu: 10:00 - 17:00 WIB
+                <strong>Pastikan keaslian ulasan anda</strong><br />
+                Pada saat menulis ulasan diharapkan user menulis berdasarkan pengalaman pribadi.
+              </p>
+              <p>
+                <strong>Ulas sesuai dengan produk</strong><br />
+                Pastikan ulasan kamu relevan dan hanya berfokus pada produk yang sedang dikomentari.
+              </p>
+              <p>
+                <strong>Sopan dan tidak SARA</strong><br />
+                Gunakan bahasa yang sopan dan hindari konten yang mengandung unsur SARA (Suku, Agama, Ras, dan Antargolongan).
+              </p>
+              <p>
+                <strong>Ada ulasan yang mengganggu?</strong><br />
+                Bagian ini memungkinkan kamu untuk melaporkan ulasan yang mungkin tidak pantas atau melanggar aturan.
               </p>
             </div>
-            <div className="account">
-              <h3>Akun Saya</h3>
-              <p><Link to="/profil">Profil</Link></p>
-              <p><Link to="/signup">Daftar</Link></p>
-              <p><Link to="/Login">Masuk</Link></p>
-            </div>
-            <div className="social-media">
-              <h3>Ikuti Kami:</h3>
-              <div className="social-icons">
-                <a href="#"><img src="/assets/images/instagram.png" alt="Instagram" /></a>
-                <a href="#"><img src="/assets/images/twt.png" alt="Twitter" /></a>
-                <a href="#"><img src="/assets/images/yt.png" alt="YouTube" /></a>
-              </div>
+            <div className="popup-button-container">
+              <button className='popup-button btn-cancel' onClick={() => handleModal('batal')}>Batal</button>
+              <button className='popup-button btn-exit' onClick={() => handleModal('mengerti')}>Mengerti</button>
             </div>
           </div>
         </div>
-        <div className="footer-bottom">
-          <p>©AYUNNE, 2024. ALL RIGHTS RESERVED</p>
-        </div>
-      </footer>
+      )}
+
+    <div className="footer-separator"></div>
+      {/* Footer */}
+      <Footer />
     </div>
   )
 }

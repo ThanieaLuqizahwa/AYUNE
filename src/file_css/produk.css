@@ -1,17 +1,17 @@
-.profile-page * {
+.produk-page * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: Arial, sans-serif;
 }
 
-.profile-page body {
+.produk-page body {
     background-color: #f4f4f4;
     color: #333;
 }
 
 /* Header styling */
-.profile-page header {
+.produk-page header {
     display: flex;
     align-items: center;
     background-color: #fff;
@@ -19,7 +19,7 @@
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.profile-page .header-divider {
+.produk-page .header-divider {
     position: relative;
     height: 80px;
     background-color: #E3F2ED;
@@ -28,7 +28,7 @@
     justify-content: center;
 }
 
-.profile-page .header-divider-text {
+.produk-page .header-divider-text {
     position: absolute;
     background-color: #E3F2ED;
     color: #3b3b3b;
@@ -37,133 +37,109 @@
     height: 60px;
 }
 
-.profile-page .luar{
+.produk-page .luar{
     background-color: #ffff;
     padding: 10px;
 }
 
-.profile-page .logo {
+.produk-page .logo {
     font-size: 24px;
     font-weight: bold;
     color: #028A56;
 }
 
+.produk-page .ulas{
 
+}
 
-/* Container utama */
-.review-container {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 20px;
-  }
-  
-  /* Kartu ulasan */
-  .review-card {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
+/* Container untuk setiap ulasan */
+.produk-page .review-container {
     background-color: #E3F2ED;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    padding: 15px;
-    margin-bottom: 15px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Kolom kiri */
-  .review-left {
-    width: 20%;
-  }
-  
-  .review-name {
-    font-size: 18px;
+    border-radius: 10px;
+    height:110px;
+    width:1199px;
+    margin-bottom: 20px;
+    display: flex;
+    flex: 1 1 calc(16.66% - 10px); /* 16.66% untuk 6 kolom, kurangi gap */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-left:80px;
+}
+
+/* Detail pengguna */
+.produk-page .user-details {
+    display: flex;
+    flex: 1 1 calc(16.66% - 10px); /* 16.66% untuk 6 kolom, kurangi gap */
+    align-items: center;
+    gap: 10px;
+}
+
+/* Rating bintang */
+.produk-page .star-rating {
+    color: #006400;
+    font-size: 40px;
+}
+
+.produk-page .rating {
+    color: #3b3b3b;
+    font-size: 40px;
+}
+
+/* Informasi pengguna */
+.produk-page .user-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+/* Nama pengguna */
+.produk-page .user-name {
     font-weight: bold;
-    margin: 0;
-  }
-  
-  .review-date {
+    font-size: 18px;
+}
+
+/* Tanggal ulasan */
+.produk-page .review-date {
     font-size: 14px;
-    color: #555;
-  }
-  
-  .review-rating {
-    font-size: 28px;
-    color: #147A63;
-  }
-  
-  .empty-stars {
-    color: #A9D4C6;
-  }
-  
-  /* Kolom tengah */
-  .review-center {
-    width: 25%;
-    font-size: 14px;
-    color: #555;
-  }
-  
-  .review-center p {
-    margin: 5px 0;
-  }
-  
-  /* Kolom kanan */
-  .review-right {
-    width: 55%;
+    color: #666;
+}
+
+/* Umur pengguna, tipe kulit, dan masalah kulit */
+.produk-page .user-age,
+.produk-page .skin-type,
+.produk-page .skin-issues {
     font-size: 14px;
     color: #333;
-  }
-  
-  .review-comment {
-    margin: 0;
+}
+
+/* Komentar ulasan */
+.produk-page .review-comment {
+    font-size: 16px;
+    color: #333;
     line-height: 1.5;
-    font-size: 16px;
-  }
-  
-  /* Pagination */
-  .pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-  }
-  
-  .page-button {
-    border: none;
-    background-color: transparent;
-    color: #008080;
-    font-size: 16px;
-    cursor: pointer;
-    margin: 0 5px;
-  }
-  
-  .page-button.active {
-    font-weight: bold;
-    text-decoration: underline;
-  }
-  
+}
 
 /* Navigasi */
-.profile-page nav ul {
+.produk-page nav ul {
     list-style: none;
     display: flex;
     margin-right: auto;
 }
 
-.profile-page nav ul li {
+.produk-page nav ul li {
     margin-right: 20px;
 }
 
-.profile-page nav ul li a {
+.produk-page nav ul li a {
     text-decoration: none;
     color: #333;
 }
 
 /* Tombol Login */
-.profile-page .auth-buttons {
+.produk-page .auth-buttons {
     margin-left: auto;
 }
 
-.profile-page .auth-buttons button {
+.produk-page .auth-buttons button {
     background-color: #fff;
     color: #147A63;
     border: 2px solid #147A63;
@@ -173,11 +149,11 @@
     font-weight: bold;
 }
 
-.profile-page .auth-buttons button:hover {
+.produk-page .auth-buttons button:hover {
     background-color: #E3F2ED;
 }
 
-.profile-page .profile-container {
+.produk-page .profile-container {
     display: flex;
     margin: 40px;
     background-color: #fff;
@@ -186,14 +162,14 @@
     border: 1px solid #3b3b3b; /* Border for the profile container */
 }
 
-.profile-page .profile-sidebar {
+.produk-page .profile-sidebar {
     width: 30%;
     padding: 20px;
     background-color: #fff;
     border-right: 1px solid #ddd;
 }
 
-.profile-coin-container {
+.produk-page .profile-coin-container {
     display: flex;
     align-items: center;
     gap: 20px;
@@ -201,31 +177,31 @@
     margin-left: 85px;
 }
 
-.profile-picture {
+.produk-page .profile-picture {
     text-align: center;
     font-size: 12px;
     font-weight: bold;
 }
 
-.profile-picture img {
+.produk-page .profile-picture img {
     width: 100px;
     height: 100px;
     border-radius: 50%;
 }
 
-.profile-info h3 {
+.produk-page .profile-info h3 {
     font-size: 16px;
     color: #333;
     margin: 0;
 }
 
-.profile-info p {
+.produk-page .profile-info p {
     font-size: 14px;
     color: #333;
     margin: 5px 0 0;
 }
 
-.profile-page .ayune-coin {
+.produk-page .ayune-coin {
     text-align: center;
     margin-top: 10px;
     font-weight: bold;
@@ -233,7 +209,7 @@
 }
 
 /* popup */
-.profile-page .popup-overlay {
+.produk-page .popup-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -246,7 +222,7 @@
     z-index: 1000;
 }
 
-.profile-page .popup-content {
+.produk-page .popup-content {
     background-color: #E9F5F3;
     border-radius: 15px;
     width: 400px;
@@ -254,45 +230,24 @@
     box-shadow: 0px 20px 22px rgba(0, 0, 0, 0.2);
 }
 
-.profile-page .popup-content-ulas {
-    background-color: #E9F5F3;
-    border-radius: 15px;
-    width: 480px;
-    box-shadow: 0px 20px 22px rgba(0, 0, 0, 0.2);
-}
-
-.profile-page .popup-header {
-    background-color: #147A63;
+.produk-page .popup-header {
+    background-color: #287961;
     color: white;
     padding: 10px;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-    font-size: 20px;
-    font-weight: bold;
-    text-align: center;
-}
-
-.profile-page .posisi {
-    padding: 10px;
-    font-size: 12px;
-    margin-left:40px;
-    margin-right:8%;
-    margin-top:10px;
-}
-
-.profile-page strong {
-    font-size: 14px;
+    font-size: 16px;
     font-weight: bold;
 }
 
-.profile-page .popup-button-container {
+.produk-page .popup-button-container {
     display: flex;
     justify-content: space-around;
-    margin-top: 20px;
+    margin-top: 30px;
     margin-bottom: 30px;
 }
 
-.profile-page .popup-button {
+.produk-page .popup-button {
     padding: 10px 50px;
     border-radius: 15px;
     font-size: 16px;
@@ -303,43 +258,37 @@
     transition: 0.3s;
 }
 
-.profile-page .btn-cancel {
-    color: #147A63;
+.produk-page .btn-cancel {
+    color: #287961;
     background-color: transparent;
-    border: 2px solid #147A63;
+    border: 2px solid #287961;
 }
 
-.profile-page .btn-cancel:hover {
+.produk-page .btn-cancel:hover {
     background-color: #d1e7e4;
 }
 
-.profile-page .btn-exit {
+.produk-page .btn-exit {
     color: white;
-    background-color: #147A63;
-    border: 2px solid #147A63;
+    background-color: #287961;
+    border: 2px solid #287961;
 }
 
-.profile-page .btn-exit:hover {
+.produk-page .btn-exit:hover {
     background-color: #1f5e4d;
 }
 
-.profile-page .btn-exit-plus {
-    color: white;
-    background-color: #147A63;
-    border: 2px solid #147A63;
-}
-
-.profile-page .ayune-coin p {
+.produk-page .ayune-coin p {
     margin: 5px 0;
 }
 
-.profile-page .profile-info label {
+.produk-page .profile-info label {
     margin: 5px;
     font-weight: bold;
     font-size:16;
 }
 
-.profile-page .profile-info input {
+.produk-page .profile-info input {
     width: 100%;
     padding: 8px;
     margin-bottom: 10px;
@@ -347,20 +296,7 @@
     border-radius: 10px;
 }
 
-.profile-page .logout-btn {
-    display: flex; /* Mengaktifkan flexbox untuk container */
-    align-items: center; /* Menyelaraskan ikon dan teks secara vertikal */
-    justify-content: start; /* Memastikan konten berbaris dari kiri */
-    background-color: #147A63; /* Warna latar belakang tombol */
-    color: #ffffff; /* Warna teks */
-    padding: 10px 20px; /* Padding untuk tombol */
-    border-radius: 8px; /* Sudut tombol membulat */
-    cursor: pointer; /* Menambahkan pointer saat di-hover */
-    font-size: 16px; /* Ukuran teks */
-    gap: 8px; /* Memberikan jarak antara ikon dan teks */
-}
-
-.profile-page .logout-btn-simpan {
+.produk-page .logout-btn {
     display: block;
     width: 100%;
     padding: 10px;
@@ -373,38 +309,31 @@
     text-decoration: none;
 }
 
-.profile-page .logout-btn .keluar {
-    width: 20px; /* Ukuran lebar ikon */
-    height: 20px; /* Ukuran tinggi ikon */
-    object-fit: contain; /* Menjaga proporsi gambar */
-    margin-left:90px;
-}
-
-.profile-page .profile-main {
+.produk-page .profile-main {
     width: 70%;
     padding: 20px;
     border-left: 1px solid #3b3b3b; /* Border for the profile main */
 }
 
-.profile-page .section-title {
+.produk-page .section-title {
     font-size: 40px;
     color: #3b3b3b;
     margin-bottom: 20px;
     text-align: center; /* Centered title */
 }
 
-.profile-page .skin-profile {
+.produk-page .skin-profile {
     margin-top: 25px;
 }
 
-.profile-page .skin-profile label {
+.produk-page .skin-profile label {
     display: block;
     margin: 5px 0;
     font-weight: bold;
 
 }
 
-.profile-page .skin-profile textarea {
+.produk-page .skin-profile textarea {
     width: 100%;
     height: 100px;
     padding: 10px;
@@ -414,19 +343,19 @@
 }
 
 /* Footer */
-.profile-page footer {
+.produk-page footer {
     background-color: #EAF5F2;
     line-height: 1.5;
 }
 
 /* Thicker Footer Separator Line */
-.profile-page .footer-separator {
+.produk-page .footer-separator {
     width: 100%;
     height: 10px; /* Increased height for a thicker line */
-    background-color: #147A63;
+    background-color:#147A63;
 }
 
-.profile-page .footer-container {
+.produk-page .footer-container {
     display: flex;
     justify-content: space-between;
     max-width: 1500px;
@@ -435,13 +364,13 @@
     gap: 20px;
 }
 
-.profile-page .footer-logo img {
+.produk-page .footer-logo img {
     width: 150px;
     margin-left: 75px;
     margin-top: 10px;
 }
 
-.profile-page .footer-content {
+.produk-page .footer-content {
     display: flex;
     gap: 40px;
     flex-wrap: wrap;
@@ -450,23 +379,23 @@
     margin-left: 75px;
 }
 
-.profile-page .customer-care, .account, .social-media {
+.produk-page .customer-care, .account, .social-media {
     flex: 1;
     min-width: 200px;
 }
 
-.profile-page .customer-care h3, .account h3, .social-media h3 {
+.produk-page .customer-care h3, .account h3, .social-media h3 {
     font-size: 16px;
     margin-bottom: 10px;
 }
 
-.profile-page .customer-care p, .account p, .social-media p {
+.produk-page .customer-care p, .account p, .social-media p {
     font-size: 14px;
     margin-bottom: 8px;
 }
 
 /* Footer Bottom */
-.profile-page .footer-bottom {
+.produk-page .footer-bottom {
     margin-left: 75px;
     margin-top: 20px;
     font-size: 14px;
@@ -474,14 +403,14 @@
 }
 
 /* Social Media Icons */
-.profile-page .social-icons {
+.produk-page .social-icons {
     display: flex;
 }
 
-.profile-page .social-icons a {
+.produk-page .social-icons a {
     margin-right: 15px;
 }
 
-.profile-page .account {
+.produk-page .account {
     text-decoration: none;
 }

@@ -1,28 +1,55 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import Header from "./components/HeaderAfterLogin";
+import Footer from "./components/Footer";
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
-import { IoMdArrowDropright } from 'react-icons/io';
-import { TiStar } from 'react-icons/ti';
-import { Link } from 'react-router-dom';
+
+const reviews = [ 
+  { name: 'Mirana Bella',
+    date: '10/10/2024',
+    rating: 4,
+    age: 28,
+    skinType: 'Kering',
+    skinIssue: 'Sangat kering,Sensitif',
+    skinProblem: 'Sangat Kering',
+    comment: 'Busanya banyak dan lembut bgt jd bikin mood buat cuci muka 🥰 wangi buahnya seger, setelah pakai wajah jd lembab dan gabikin kering ketarik gt 💆‍♀️' 
+  },
+  { name: 'Ariana Joe', 
+    date: '01/10/2024', 
+    rating: 5, 
+    age: 19, 
+    skinType: 'Kering', 
+    skinIssue: 'Sangat kering, Sensitif', 
+    skinProblem: 'Sansitif',
+    comment: 'Bikin cerahan banget, jerawat yg aktif dan meradang jd kempes dalam semalam, teksturnya lembut banget, tapi untuk aku di kulit yang kombinasi ini bikin beberapa area jadi kering tp overall bagus banget sihh karna tinggal lanjutin skincarean aja dan biar kulitnya moist lagi' 
+  }, 
+  { name: 'Sandrina', 
+    date: '27/09/2024', 
+    rating: 5, 
+    age: 19, 
+    skinType: 'Kombinasi', 
+    skinIssue: 'Sensitif',
+    skinProblem: 'Bruntusan',
+    comment: 'Facial foam dari Senka yang ada kandungan mixed berries yang kaya akan antioksidan, saat pakai facial foam ini dia punya foam yang lembut banget di kulit, busanya juga banyak, ada sedikit aroma apel yang enak, dan facial foam ini meresap banget ke kulit bikin kulit lebih cerah, sehat dan lembab' 
+  }, 
+];
 
 const DeskripsiProduk = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false); // Mengelola modal
+  const navigate = useNavigate(); // Hook untuk navigasi
+
+  const handleModal = (action) => {
+    if (action === 'mengerti') {
+      navigate('/ulasan_produk'); // Navigasi ke halaman ulasan
+    }
+    setIsModalOpen(false); // Tutup modal
+  };
+
   return (
     <div className="profile-page">
-      <header>
-        <div className="logo">
-          <img src="/assets/images/logobesar.svg" alt="Logo Ayune" />
-        </div>
-        <nav>
-          <ul>
-            <li><Link to="/HomeAfterLogin">BERANDA</Link></li>
-            <li><Link to="/AboutUs_Login">TENTANG KAMI</Link></li>
-            <li><Link to="/Produk">PRODUK</Link></li>
-            <li><Link to="/Ahli">KONSULTASI</Link></li>
-          </ul>
-        </nav>
-        <div className="auth-buttons">
-          <Link to="/profil"><button>Ayyunie</button></Link>
-        </div>
-      </header>
+      {/* header */}
+      <Header />
+
       <div className='space-y-[30px] bg-white'>
         <section className='bg-[#E3F2ED] py-[5px]'>
           <div className='flex gap-[89px] px-[120px] justify-center'>
@@ -72,191 +99,105 @@ const DeskripsiProduk = () => {
         </section>
         <section className='bg-[#E3F2ED] py-[21px] flex justify-center relative'>
           <div className=' px-[120px] justify-center'>
-            <p className='text-[#4A4A4A] text-[20px] font-bold text-center mb-[7px]'>Ulasan</p>
+            <p className='text-[#4A4A4A] text-[20px] font-bold text-center mb-[5px]'>Ulasan</p>
             <div className='flex gap-[10px] items-center justify-center'>
-                <div className='flex gap-[4.34px] items-center'>
+                <div className='flex gap-[4.34px] items-center mb-[10px]' >
                     <img src="/assets/images/1b.png" alt="1b" />
                     <img src="/assets/images/2b.png" alt="2b" />
                     <img src="/assets/images/3b.png" alt="3b" />
                     <img src="/assets/images/4b.png" alt="4b" />
                     <img src="/assets/images/5b.png" alt="5b" />
-
                 </div>
                 <p className='font-bold text-[24.24px]'>4.7 / 5</p>
             </div>
           </div>
-          <Link to="/ulasan_produk">
-            <button className='px-[11px] bg-[#147A63] text-white font-bold rounded-full h-[37px] w-[200px] py-[50px] text-[20px] absolute right-[120px] top-[16px]'>Berikan Ulasan</button>
-          </Link>
+        
+          <button className='px-[11px] bg-[#147A63] text-white font-bold rounded-full h-[37px] w-[200px] py-[50px] text-[20px] absolute right-[120px] top-[16px]' onClick={() => setIsModalOpen(true)} // Pastikan fungsi ini dipanggil
+          >
+            Berikan Ulasan
+          </button>
+         
         </section>
-        <section className='px-[121px] flex items-center justify-center pb-[18px]'>
-            <div>
-                <div className='bg-[#E3F2ED] w-[1199px] rounded-[15px] pl-[17px] py-[17px] pr-[27px] flex justify-start gap-[47px] mb-[10px] '>
-                    <div className='flex gap-[8px] items-center'>
-                        <img src="/assets/images/sen1.png" className='rounded-full w-[75px] h-[75px] object-cover' alt="expert6" />
-                        <div>
-                            <div>
-                                <div className='flex justify-between font-bold text-[20px] text-[#333333]'>
-                                    <p>Miranda</p>
-                                    <p className='flex items-center'><TiStar  className='text-[#147A63] text-xl'/>4</p>
-                                </div>
-                                <p className='text-[10px]'>10/10/2024</p>
-                            </div>
-                            <div className='flex gap-x-[8px] text-[#333333]'>
-                                <div className='w-fit text-[10px]'>
-                                    <p className='font-bold'>Umur</p>
-                                    <p>28</p>
-                                </div>
-                                <div className='w-fit text-[10px]'>
-                                    <p className='font-bold'>Tipe Kulit</p>
-                                    <p>Kering</p>
-                                </div>
-                                <div className='w-fit text-[10px]'>
-                                    <p className='font-bold'>Masalah Kulit</p>
-                                    <p>Sangat Kering</p>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    <p className='text-[12px] w-[537px] flex items-center justify-center'>
-                    Busanya banyak dan lembut bgt jd bikin mood buat cuci muka 🥰 wangi buahnya seger, setelah pakai wajah jd lembab dan gabikin kering ketarik gt 💯
-                    </p>
-                    <div className='flex gap-[15px] items-center'>
-                        <img src="/assets/images/ulasansenka1.png" className='rounded-lg w-[75px] h-[75px] object-cover' alt="ulasansenka1" />
-                        <img src="/assets/images/ulasansenka1-2.png" className='rounded-lg w-[75px] h-[75px] object-cover' alt="ulasansenka2" />
-                        <img src="/assets/images/ulasansenka1-3.png" className='rounded-lg w-[75px] h-[75px] object-cover' alt="ulasansenka3" />
-
-                    </div>
+        {/* kumpulan ulasan */}
+        <section className='ulas'>
+            {/* ulasan 1 */}
+            <div className="review-container">
+              {reviews.map((review, index) => (
+                <div key={index} className="review-card">
+                  <div className="review-left">
+                    <h3 className="review-name">{review.name}</h3>
+                    <p className="review-date">{review.date}</p>
+                    <div className="review-rating">
+                      {"★".repeat(review.rating)}{" "}
+                    <span className="empty-stars">
+                      {"★".repeat(5 - review.rating)}
+                    </span>
+                  </div>
                 </div>
-                <div className='bg-[#E3F2ED] w-[1199px] rounded-[15px] pl-[17px] py-[17px] pr-[27px] flex justify-start gap-[47px] mb-[10px] '>
-                    <div className='flex gap-[8px] items-center'>
-                        <img src="/assets/images/sen2.png" className='rounded-full w-[75px] h-[75px] object-cover' alt="expert6" />
-                        <div>
-                            <div>
-                                <div className='flex justify-between font-bold text-[20px] text-[#333333]'>
-                                    <p>Ariana Joe</p>
-                                    <p className='flex items-center'><TiStar  className='text-[#147A63] text-xl'/>5</p>
-
-                                </div>
-                                <p className='text-[10px]'>01/10/2024</p>
-                            </div>
-                            <div className='flex gap-x-[8px] text-[#333333]'>
-                                <div className='w-fit text-[10px]'>
-                                    <p className='font-bold'>Umur</p>
-                                    <p>19</p>
-                                </div>
-                                <div className='w-fit text-[10px]'>
-                                    <p className='font-bold'>Tipe Kulit</p>
-                                    <p>Kering</p>
-                                </div>
-                                <div className='w-fit text-[10px]'>
-                                    <p className='font-bold'>Masalah Kulit</p>
-                                    <p>Sangat Kering</p>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    <p className='text-[12px] w-[537px] flex items-center justify-center'>
-                    Bikin cerahan banget, jerawat yg aktif dan meradang jadi kempes dalam semalam, teksturnya lembut banget, tapi untuk aku di kulit yang kombinasi ini bikin beberapa area jadi kering tp overall baguss bangett sihh karna tinggal lanjut skincarean aja deh biar kulitnya moist lagii
-                    </p>
-                    <div className='flex gap-[15px] items-center'>
-                        <img src="/assets/images/ulasansenka2.png" className='rounded-lg w-[75px] h-[75px] object-cover' alt="ulasansenka4" />
-
-                    </div>
-                </div>
-                <div className='bg-[#E3F2ED] w-[1199px] rounded-[15px] pl-[17px] py-[17px] pr-[27px] flex justify-start gap-[47px] mb-[10px] '>
-                    <div className='flex gap-[8px] items-center'>
-                        <img src="/assets/images/sen3.png" className='rounded-full w-[75px] h-[75px] object-cover' alt="expert6" />
-                        <div>
-                            <div>
-                                <div className='flex justify-between font-bold text-[20px] text-[#333333]'>
-                                    <p>Sandrina</p>
-                                    <p className='flex items-center'><TiStar  className='text-[#147A63] text-xl'/>5</p>
-                                </div>
-                                <p className='text-[10px]'>27/09/2024</p>
-                            </div>
-                            <div className='flex gap-x-[8px] text-[#333333]'>
-                                <div className='w-fit text-[10px]'>
-                                    <p className='font-bold'>Umur</p>
-                                    <p>19</p>
-                                </div>
-                                <div className='w-fit text-[10px]'>
-                                    <p className='font-bold'>Tipe Kulit</p>
-                                    <p>Kombinasi</p>
-                                </div>
-                                <div className='w-fit text-[10px]'>
-                                    <p className='font-bold'>Masalah Kulit</p>
-                                    <p>Sensitif</p>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    <p className='text-[12px] w-[537px] flex items-center justify-center'>
-                    Facial foam dari Senka yang ada kandungan mixed berries yang kaya akan antioksidan, saat pakai facial foam ini dia punya foam yang lembut banget di kulit, busanya juga banyak, ada sedikit aroma tapi aromanya enak, dan facial foam ini meresap banget ke kulit bikin kulit lebih cerah, sehat dan lembab
-                    </p>
-                    <div className='flex gap-[15px] items-center'>
-                        <img src="/assets/images/ulasansenka3.png" className='rounded-lg w-[75px] h-[75px] object-cover' alt="ulasansenka5" />
-
-                    </div>
-                </div>
-                <div className='flex items-center justify-center gap-[17px]'>
-                    <FaChevronLeft className='text-xl' />
-                    <div className='flex gap-[7px]'>
-                    <p className="flex items-center justify-center rounded-full bg-[#147A63] text-white text-[24px] w-[50px] h-[50px] font-bold">
-                        1
-                    </p>
-                    <p className="flex items-center justify-center rounded-full bg-[#E3F2ED] text-black text-[24px] w-[50px] h-[50px] font-bold">
-                        2
-                    </p>
-
-                    </div>
-                    <FaChevronRight className='text-xl' />
-                </div>
+            <div className="review-center">
+              <p>
+                <strong>Umur:</strong> {review.age}
+              </p>
+              <p>
+                <strong>Tipe Kulit:</strong> {review.skinType}
+              </p>
+              <p>
+                <strong>Masalah Kulit:</strong> {review.skinProblem}
+              </p>
             </div>
+            <div className="review-right">
+              <p className="review-comment">{review.comment}</p>
+            </div>
+          </div>
+          ))}
+          {/* swipe */}
+          <div className='flex items-center justify-center gap-[17px]'>
+              <FaChevronLeft className='text-xl' />
+              <div className='flex gap-[7px]'>
+              <p className="flex items-center justify-center rounded-full bg-[#147A63] text-white text-[24px] w-[50px] h-[50px] font-bold">
+                1
+              </p>
+              </div>
+              <FaChevronRight className='text-xl' />
+            </div>
+          </div>
         </section>
       </div>
 
-      <footer className="aboutus-footer">
-        <div className="footer-separator"></div>
-        <div className="footer-container">
-          <div className="footer-logo">
-            <img src="/assets/images/logobesar.svg" alt="Logo Ayune" />
-          </div>
-          <div className="footer-content">
-            <div className="customer-care">
-              <h3>Layanan Pelanggan</h3>
-              <p>Whatsapp: +62-851-6564-4356</p>
-              <p>Instagram: @ayunneconsultation</p>
-              <p>Email: ayunneconsultation@gmail.com</p>
+      {/* popup */}
+      {isModalOpen && (
+        <div className='popup-overlay'>
+          <div className='popup-content-ulas'>
+            <h3 className='popup-header'>Simpan ulasan anda dan dapatkan koin</h3>
+            <div className='posisi'>
               <p>
-                <strong>Jam operasional:</strong><br />
-                Senin-Jumat: 10:00 - 21:00 WIB<br />
-                Sabtu: 10:00 - 17:00 WIB
+                <strong>Pastikan keaslian ulasan anda</strong><br />
+                Pada saat menulis ulasan diharapkan user menulis berdasarkan pengalaman pribadi.
+              </p>
+              <p>
+                <strong>Ulas sesuai dengan produk</strong><br />
+                Pastikan ulasan kamu relevan dan hanya berfokus pada produk yang sedang dikomentari.
+              </p>
+              <p>
+                <strong>Sopan dan tidak SARA</strong><br />
+                Gunakan bahasa yang sopan dan hindari konten yang mengandung unsur SARA (Suku, Agama, Ras, dan Antargolongan).
+              </p>
+              <p>
+                <strong>Ada ulasan yang mengganggu?</strong><br />
+                Bagian ini memungkinkan kamu untuk melaporkan ulasan yang mungkin tidak pantas atau melanggar aturan.
               </p>
             </div>
-            <div className="account">
-              <h3>Akun Saya</h3>
-              <p><Link to="/profil">Profil</Link></p>
-              <p><Link to="/signup">Daftar</Link></p>
-              <p><Link to="/Login">Masuk</Link></p>
-            </div>
-            <div className="social-media">
-              <h3>Ikuti Kami:</h3>
-              <div className="social-icons">
-                <a href="#"><img src="/assets/images/instagram.png" alt="Instagram" /></a>
-                <a href="#"><img src="/assets/images/twt.png" alt="Twitter" /></a>
-                <a href="#"><img src="/assets/images/yt.png" alt="YouTube" /></a>
-              </div>
+            <div className="popup-button-container">
+              <button className='popup-button btn-cancel' onClick={() => handleModal('batal')}>Batal</button>
+              <button className='popup-button btn-exit' onClick={() => handleModal('mengerti')}>Mengerti</button>
             </div>
           </div>
         </div>
-        <div className="footer-bottom">
-          <p>©AYUNNE, 2024. ALL RIGHTS RESERVED</p>
-        </div>
-      </footer>
+      )}
+
+    <div className="footer-separator"></div>
+      {/* Footer */}
+      <Footer />
     </div>
   )
 }

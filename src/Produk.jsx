@@ -1,27 +1,72 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { CiSearch } from 'react-icons/ci';
 import { IoMdArrowDropright } from 'react-icons/io';
+import Header from "./components/HeaderAfterLogin";
+import Footer from "./components/Footer";
 import { Link } from 'react-router-dom';
 
 const Produk = () => {
+  const products = [
+    { id: 1, name: 'SENKA' ,jenis: 'Miraculous Retinol Toner', price: 'Rp169.000 - Rp175.000', image: 'assets/images/pembersih/senkapembersih.png', category: 'Pembersih' },
+    { id: 2, name: 'CETAPHIL' ,jenis: 'Acne Essence Toner', price: 'Rp83.000 - Rp90.000', image: 'assets/images/pembersih/cetaphilpembersih.png', category: 'Pembersih' },
+    { id: 3, name: 'EMINA' ,jenis: 'Hydrate Glow Face Toner', price: 'Rp57.000 - Rp65.000', image: 'assets/images/pembersih/eminapembersih.png', category: 'Pembersih' },
+    { id: 4, name: 'SKINTIFIC' ,jenis: 'Hydrate Glow Face Toner', price: 'Rp57.000 - Rp65.000', image: 'assets/images/pembersih/skintificpembersih.png', category: 'Pembersih' },
+    { id: 5, name: 'BREYLEE' ,jenis: 'Hydrate Glow Face Toner', price: 'Rp57.000 - Rp65.000', image: 'assets/images/pembersih/breyleepembersih.png', category: 'Pembersih' },
+
+    { id: 6, name: 'AVOSKIN' ,jenis: 'Miraculous Retinol Toner', price: 'Rp169.000 - Rp175.000', image: 'assets/images/toner/avoskintonerr.png', category: 'Toner' },
+    { id: 7, name: 'SCARLETT' ,jenis: 'WHITENING Acne Essence Toner', price: 'Rp83.000 - Rp90.000', image: 'assets/images/toner/scarlettonerr.png', category: 'Toner' },
+    { id: 8, name: 'DERMALUZ' ,jenis: 'Hydrate Glow Face Toner', price: 'Rp57.000 - Rp65.000', image: 'assets/images/toner/dermatonerr.png', category: 'Toner' },
+    { id: 9, name: 'BARENBLISS' ,jenis: 'Glow Bottle! Lavabiome', price: 'Rp16.900 - Rp.20.000', image: 'assets/images/toner/bnbtonerr.png', category: 'Toner' },
+    { id: 10, name: 'PONDS' ,jenis: 'White Beauty Toner 150ml', price: 'Rp33.000 - Rp40.000', image: 'assets/images/toner/pondstonerr.png', category: 'Toner' },
+
+    { id: 11, name: 'Y.O.U' ,jenis: 'Acneplus Multi Action Cream', price: 'Rp45.000 - Rp56.000', image: 'assets/images/pelembap/youpelembap.png', category: 'Pelembap' },
+    { id: 12, name: 'HALE' ,jenis: 'Fountain Of Youth', price: 'Rp139.000 - Rp145.000', image: 'assets/images/pelembap/halepelembap.png', category: 'Pelembap' },
+    { id: 13, name: 'CETAPHIL' ,jenis: 'Moisturising Cream', price: 'Rp360.000 - Rp375.000', image: 'assets/images/pelembap/cetaphilpelembap.png', category: 'Pelembap' },
+    { id: 14, name: 'GORJES' ,jenis: 'Magnificent Ace Moisturizer', price: 'Rp240.000 - Rp244.000', image: 'assets/images/pelembap/gorjespelembap.png', category: 'Pelembap' },
+    { id: 15, name: 'STUDIO' ,jenis: 'TROPIK Rich Skin Barrier Cream', price: 'Rp199.000 - Rp219.000', image: 'assets/images/pelembap/studiopelembap.png', category: 'Pelembap' },
+
+    { id: 16, name: 'GLAD2GLOW' ,jenis: 'Yuja Symwhite 377 Dark Spot...', price: 'Rp49.000 - Rp55.000', image: 'assets/images/serum/g2gserum.png', category: 'Serum' },
+    { id: 17, name: 'NIVEA' ,jenis: 'Luminous 630 Spotclear Intensive', price: 'Rp335.000 - Rp350.000', image: 'assets/images/serum/niveaserum.png', category: 'Serum' },
+    { id: 18, name: 'SOMETHINC' ,jenis: 'Calm Down! Skinpair Barrier', price: 'Rp139.000 - Rp145.000', image: 'assets/images/serum/somethincserum.png', category: 'Serum' },
+    { id: 19, name: 'FIRSTLAB' ,jenis: 'Probiotic Barrier Ampoule', price: 'Rp283.000 - Rp300.000', image: 'assets/images/serum/firstserum.png', category: 'Serum' },
+    { id: 20, name: 'JARKEEN' ,jenis: 'Vit C Booster Serum', price: 'Rp150.000 - Rp177.000', image: 'assets/images/serum/jarkeenserum.png', category: 'Serum' },
+
+    { id: 21, name: 'AZARINE' ,jenis:'Hydracool Ceraspray Sunscreen', price: 'Rp65.000 - Rp71.000', image: 'assets/images/ss/azarinesun.png', category: 'Sunscreen' },
+    { id: 22, name: 'BIORE' ,jenis: 'UV Fresh & Bright Instant Cover...', price: 'Rp38.000 - Rp41.000', image: 'assets/images/ss/bioresun.png', category: 'Sunscreen' },
+    { id: 23, name: 'EMINA' ,jenis: 'Skin Buddy Sun Protection...', price: 'Rp38.000 - Rp42.000', image: 'assets/images/ss/eminasun.png', category: 'Sunscreen' },
+    { id: 24, name: 'TRUE' ,jenis: 'TO SKIN Sunfriends Soothing Sunscreen', price: 'Rp78.000 - Rp83.000', image: 'assets/images/ss/truesun.png', category: 'Sunscreen' },
+    { id: 25, name: 'WARDAH' ,jenis: 'UV Shield Aqua Fresh Essence...', price: 'Rp61.000 - Rp66.000', image: 'assets/images/ss/wardahsun.png', category: 'Sunscreen' },
+
+    { id: 26, name: 'SKINTIFIC' ,jenis: 'Niacinamide Bright Boost Clay Mask', price: 'Rp110.000 - Rp118.000', image: 'assets/images/masker/skintificmasker.png', category: 'Masker' },
+    { id: 27, name: 'BANOBAGI' ,jenis: 'Vita Genic Jelly Mask Relaxing', price: 'Rp14.000 - Rp20.000', image: 'assets/images/masker/banobagimasker.png', category: 'Masker' },
+    { id: 28, name: 'SENKA' ,jenis: 'Perfect Aqua Bouncy Mask', price: 'Rp31.000 - Rp33.000', image: 'assets/images/masker/senkamasker.png', category: 'Masker' },
+    { id: 29, name: 'HADA' ,jenis: 'LABO Gokujyun Alpha Ultimate', price: 'Rp95.000 - Rp103.000', image: 'assets/images/masker/hadalabomasker.png', category: 'Masker' },
+    { id: 30, name: 'LACOCO' ,jenis: 'Watermelon Glow Sheet Mask', price: 'Rp150.000 - Rp156.000', image: 'assets/images/masker/lacocomasker.png', category: 'Masker' },
+  ];
+
+  const categories = ['Pembersih', 'Toner', 'Pelembap', 'Serum', 'Sunscreen', 'Masker'];
+
+  const [searchQuery, setSearchQuery] = useState('');
+
+  // Function to handle search query change
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  // Filter products based on the search query (filter only by product name)
+  const filteredProducts = products.filter(product =>
+    product.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const getFilteredCategoryProducts = (startId, endId) => {
+    return filteredProducts.filter(product => product.id >= startId && product.id <= endId);
+  };
+
   return (
-    <div className="profile-page">
-      <header>
-        <div className="logo">
-          <img src="assets/images/logobesar.svg" alt="Logo Ayune" />
-        </div>
-        <nav>
-          <ul>
-            <li><Link to="/">BERANDA</Link></li>
-            <li><Link to="/AboutUs_Login">TENTANG KAMI</Link></li>
-            <li><Link to="/Produk">PRODUK</Link></li>
-            <li><Link to="/Ahli">KONSULTASI</Link></li>
-          </ul>
-        </nav>
-        <div className="auth-buttons">
-          <Link to="/profil"><button>Ayyunie</button></Link>
-        </div>
-      </header>
+    <div>
+      {/* Header */}
+      <Header />
+
       <div className='space-y-[30px] bg-white'>
         {/* Section Search Produk */}
         <section className='bg-[#E3F2ED] py-[5px]'>
@@ -29,418 +74,155 @@ const Produk = () => {
             <p className='text-[#4A4A4A] text-[40px] font-bold'>PRODUK</p>
             <div className='flex gap-2 items-center bg-white px-[21px] py-[16px] w-full'>
               <CiSearch className='font-bold text-3xl'/>
-              <input type="text" name="" id="" className='outline-none   w-full rounded' placeholder='Telusuri produk perawatan kulit Anda...'/>
+              <input 
+                type="text" 
+                className='outline-none w-full rounded' 
+                placeholder='Telusuri produk perawatan kulit Anda...' 
+                value={searchQuery}
+                onChange={handleSearchChange}
+              />
             </div>
           </div>
         </section>
+
         {/* Section Pembersih */}
         <section>
           <div className='flex justify-between px-[120px] py-[6px] bg-[#E3F2ED]'>
-            <p className='text-[#4A4A4A] text-[24px] font-bold'>Pembersih </p>
+            <p className='text-[#4A4A4A] text-[24px] font-bold'>Pembersih</p>
             <Link to={'/Produk/Pembersih'} className='flex items-center font-bold text-[13px]'>Selengkapnya <IoMdArrowDropright className='text-3xl'/></Link>
           </div>
-        </section>
-        <section>
-          <div className='grid grid-cols-5 gap-x-[61px] gap-y-[10px] px-[120px]   py-[51px] bg-white'>
-              <Link to={'/Produk/Pembersih/Deskripsi'} className='space-y-[16px] '>
-                <div className='flex justify-center'>
-                  <img className=' h-[261px] w-[261px] object-contain' src="assets/images/senkapem.png" alt="SENKA" />
+          <div className="grid grid-cols-5 gap-x-[61px] gap-y-[10px] px-[120px] py-[51px] bg-white">
+            {getFilteredCategoryProducts(1, 5).map(product => (
+              <Link key={product.id} to={product.link || "/Produk/Pembersih/Deskripsi"} className="space-y-[16px]">
+                <div className="flex justify-center">
+                  <img className="h-[261px] w-[261px] object-contain" src={product.image} alt={product.name} />
                 </div>
-                <div className='text-[#4A4A4A] text-[12px]'>
-                  <p className='text-[#147A63] font-extrabold'>SENKA</p>
-                  <p>Miraculous Retinol Toner</p>
-                  <p>Rp169.000 - Rp175.000</p>
-                </div>
-              </Link>
-              <Link to={'/Produk/Pembersih/Deskripsi'} className='space-y-[16px] '>
-                <div className='flex justify-center'>
-                  <img className=' h-[261px] w-[261px] object-contain' src="assets/images/pembersih1.png" alt="CETAPHIL" />
-                </div>
-                <div className='text-[#4A4A4A] text-[12px]'>
-                  <p className='text-[#147A63] font-extrabold'>CETAPHIL</p>
-                  <p>Acne Essence Toner</p>
-                  <p>Rp83.000 - Rp90.000</p>
+                <div className="text-[#4A4A4A] text-[12px]">
+                  <p className='text-[#147A63] font-extrabold'>{product.name}</p>
+                  <p>{product.jenis}</p>
+                  <p>{product.price}</p>
                 </div>
               </Link>
-              <Link to={'/Produk/Pembersih/Deskripsi'} className='space-y-[16px] '>
-                <div className='flex justify-center'>
-                  <img className=' h-[261px] w-[261px] object-contain' src="assets/images/eminapem.png" alt="EMINA" />
-                </div>
-                <div className='text-[#4A4A4A] text-[12px]'>
-                  <p className='text-[#147A63] font-extrabold'>EMINA</p>
-                  <p>Hydrate Glow Face Toner</p>
-                  <p>Rp57.000 - Rp65.000</p>
-                </div>
-              </Link>
-              <Link to={'/Produk/Pembersih/Deskripsi'} className='space-y-[16px] '>
-                <div className='flex justify-center'>
-                  <img className=' h-[261px] w-[261px] object-contain' src="assets/images/skintificpem.png" alt="SKINTIFIC" />
-                </div>
-                <div className='text-[#4A4A4A] text-[12px]'>
-                  <p className='text-[#147A63] font-extrabold'>SKINTIFIC</p>
-                  <p>Hydrate Glow Face Toner</p>
-                  <p>Rp57.000 - Rp65.000</p>
-                </div>
-              </Link>
-              <Link to={'/Produk/Pembersih/Deskripsi'} className='space-y-[16px] '>
-                <div className='flex justify-center'>
-                  <img className=' h-[261px] w-[261px] object-contain' src="assets/images/breeyleepem.png" alt="BREYLEE" />
-                </div>
-                <div className='text-[#4A4A4A] text-[12px]'>
-                  <p className='text-[#147A63] font-extrabold'>BREYLEE</p>
-                  <p>Hydrate Glow Face Toner</p>
-                  <p>Rp57.000 - Rp65.000</p>
-                </div>
-              </Link>
+            ))}
           </div>
         </section>
+
         {/* Section Toner */}
         <section>
           <div className='flex justify-between px-[120px] py-[6px] bg-[#E3F2ED]'>
-            <p className='text-[#4A4A4A] text-[24px] font-bold'>Toner </p>
+            <p className='text-[#4A4A4A] text-[24px] font-bold'>Toner</p>
             <Link to={'/Produk/Toner'} className='flex items-center font-bold text-[13px]'>Selengkapnya <IoMdArrowDropright className='text-3xl'/></Link>
           </div>
-        </section>
-        <section>
-          <div className='grid grid-cols-5 gap-x-[61px] gap-y-[10px] px-[120px]   py-[51px] bg-white'>
-              <Link to={'/Produk/Toner/Deskripsi'} className='space-y-[16px] '>
-                <div className='flex justify-center'>
-                  <img className=' h-[261px] w-[261px] object-contain' src="assets/images/avotoner.png" alt="AVOSKIN" />
+          <div className="grid grid-cols-5 gap-x-[61px] gap-y-[10px] px-[120px] py-[51px] bg-white">
+            {getFilteredCategoryProducts(6, 10).map(product => (
+              <Link key={product.id} to={product.link || "#"} className="space-y-[16px]">
+                <div className="flex justify-center">
+                  <img className="h-[261px] w-[261px] object-contain" src={product.image} alt={product.name} />
                 </div>
-                <div className='text-[#4A4A4A] text-[12px]'>
-                  <p className='text-[#147A63] font-extrabold'>AVOSKIN</p>
-                  <p>Miraculous Retinol Toner</p>
-                  <p>Rp169.000 - Rp175.000</p>
-                </div>
-              </Link>
-              <Link to={'/Produk/Toner/Deskripsi'} className='space-y-[16px] '>
-                <div className='flex justify-center'>
-                  <img className=' h-[261px] w-[261px] object-contain' src="assets/images/scarlettoner.png" alt="SCARLETT WHITENING" />
-                </div>
-                <div className='text-[#4A4A4A] text-[12px]'>
-                  <p className='text-[#147A63] font-extrabold'>SCARLETT WHITENING</p>
-                  <p>Acne Essence Toner</p>
-                  <p>Rp83.000 - Rp90.000</p>
+                <div className="text-[#4A4A4A] text-[12px]">
+                  <p className='text-[#147A63] font-extrabold'>{product.name}</p>
+                  <p>{product.jenis}</p>
+                  <p>{product.price}</p>
                 </div>
               </Link>
-              <Link to={'/Produk/Toner/Deskripsi'} className='space-y-[16px] '>
-                <div className='flex justify-center'>
-                  <img className=' h-[261px] w-[261px] object-contain' src="assets/images/dermatoner.png" alt="DERMALUZ" />
-                </div>
-                <div className='text-[#4A4A4A] text-[12px]'>
-                  <p className='text-[#147A63] font-extrabold'>DERMALUZ</p>
-                  <p>Hydrate Glow Face Toner</p>
-                  <p>Rp57.000 - Rp65.000</p>
-                </div>
-              </Link>
-              <Link to={'/Produk/Toner/Deskripsi'} className='space-y-[16px] '>
-                <div className='flex justify-center'>
-                  <img className=' h-[261px] w-[261px] object-contain' src="assets/images/bnbtoner.png" alt="BARENBLISS" />
-                </div>
-                <div className='text-[#4A4A4A] text-[12px]'>
-                  <p className='text-[#147A63] font-extrabold'>BARENBLISS</p>
-                  <p>Glow Bottle! Lavabiome</p>
-                  <p>Rp16.900 - Rp.20.000</p>
-                </div>
-              </Link>
-              <Link to={'/Produk/Toner/Deskripsi'} className='space-y-[16px] '>
-                <div className='flex justify-center'>
-                  <img className=' h-[261px] w-[261px] object-contain' src="assets/images/pondstoner.png" alt="PONDS" />
-                </div>
-                <div className='text-[#4A4A4A] text-[12px]'>
-                  <p className='text-[#147A63] font-extrabold'>PONDS</p>
-                  <p>White Beauty Toner 150ml</p>
-                  <p>Rp33.000 - Rp40.000</p>
-                </div>
-              </Link>
+            ))}
           </div>
         </section>
+
         {/* Section Pelembap */}
         <section>
           <div className='flex justify-between px-[120px] py-[6px] bg-[#E3F2ED]'>
-            <p className='text-[#4A4A4A] text-[24px] font-bold'>Pelembap </p>
+            <p className='text-[#4A4A4A] text-[24px] font-bold'>Pelembap</p>
             <Link to={'/Produk/Pelembap'} className='flex items-center font-bold text-[13px]'>Selengkapnya <IoMdArrowDropright className='text-3xl'/></Link>
           </div>
-        </section>
-        <section>
-          <div className='grid grid-cols-5 gap-x-[61px] gap-y-[10px] px-[120px]   py-[51px] bg-white'>
-              <Link to={'/Produk/Pelembap/Deskripsi'} className='space-y-[16px] '>
-                <div className='flex justify-center'>
-                  <img className=' h-[261px] w-[261px] object-contain' src="assets/images/youpel.png" alt="Y.O.U" />
+          <div className="grid grid-cols-5 gap-x-[61px] gap-y-[10px] px-[120px] py-[51px] bg-white">
+            {getFilteredCategoryProducts(11, 15).map(product => (
+              <Link key={product.id} to={product.link || "#"} className="space-y-[16px]">
+                <div className="flex justify-center">
+                  <img className="h-[261px] w-[261px] object-contain" src={product.image} alt={product.name} />
                 </div>
-                <div className='text-[#4A4A4A] text-[12px]'>
-                  <p className='text-[#147A63] font-extrabold'>Y.O.U</p>
-                  <p>Acneplus Multi Action Cream</p>
-                  <p>Rp45.000 - Rp56.000</p>
-                </div>
-              </Link>
-              <Link to={'/Produk/Pelembap/Deskripsi'} className='space-y-[16px] '>
-                <div className='flex justify-center'>
-                  <img className=' h-[261px] w-[261px] object-contain' src="assets/images/halepel.png" alt="HALE" />
-                </div>
-                <div className='text-[#4A4A4A] text-[12px]'>
-                  <p className='text-[#147A63] font-extrabold'>HALE</p>
-                  <p>Fountain Of Youth</p>
-                  <p>Rp139.000 - Rp145.000</p>
+                <div className="text-[#4A4A4A] text-[12px]">
+                  <p className='text-[#147A63] font-extrabold'>{product.name}</p>
+                  <p>{product.jenis}</p>
+                  <p>{product.price}</p>
                 </div>
               </Link>
-              <Link to={'/Produk/Pelembap/Deskripsi'} className='space-y-[16px] '>
-                <div className='flex justify-center'>
-                  <img className=' h-[261px] w-[261px] object-contain' src="assets/images/cetaphilpem.png" alt="CETAPHIL" />
-                </div>
-                <div className='text-[#4A4A4A] text-[12px]'>
-                  <p className='text-[#147A63] font-extrabold'>CETAPHIL</p>
-                  <p>Moisturising Cream</p>
-                  <p>Rp360.000 - Rp375.000</p>
-                </div>
-              </Link>
-              <Link to={'/Produk/Pelembap/Deskripsi'} className='space-y-[16px] '>
-                <div className='flex justify-center'>
-                  <img className=' h-[261px] w-[261px] object-contain' src="assets/images/gorjespel.png" alt="GORJES" />
-                </div>
-                <div className='text-[#4A4A4A] text-[12px]'>
-                  <p className='text-[#147A63] font-extrabold'>GORJES</p>
-                  <p>Magnificent Ace Moisturizer</p>
-                  <p>Rp240.000 - Rp244.000</p>
-                </div>
-              </Link>
-              <Link to={'/Produk/Pelembap/Deskripsi'} className='space-y-[16px] '>
-                <div className='flex justify-center'>
-                  <img className=' h-[261px] w-[261px] object-contain' src="assets/images/studiopel.png" alt="STUDIO TROPIK" />
-                </div>
-                <div className='text-[#4A4A4A] text-[12px]'>
-                  <p className='text-[#147A63] font-extrabold'>STUDIO TROPIK</p>
-                  <p>Rich Skin Barrier Cream</p>
-                  <p>Rp199.000 - Rp219.000</p>
-                </div>
-              </Link>
+            ))}
           </div>
         </section>
+
         {/* Section Serum */}
         <section>
           <div className='flex justify-between px-[120px] py-[6px] bg-[#E3F2ED]'>
-            <p className='text-[#4A4A4A] text-[24px] font-bold'>Serum </p>
+            <p className='text-[#4A4A4A] text-[24px] font-bold'>Serum</p>
             <Link to={'/Produk/Serum'} className='flex items-center font-bold text-[13px]'>Selengkapnya <IoMdArrowDropright className='text-3xl'/></Link>
           </div>
-        </section>
-        <section>
-          <div className='grid grid-cols-5 gap-x-[61px] gap-y-[10px] px-[120px]   py-[51px] bg-white'>
-              <Link to={'/Produk/Serum/Deskripsi'} className='space-y-[16px] '>
-                <div className='flex justify-center'>
-                  <img className=' h-[261px] w-[261px] object-contain' src="assets/images/g2gser.png" alt="GLAD2GLOW" />
+          <div className="grid grid-cols-5 gap-x-[61px] gap-y-[10px] px-[120px] py-[51px] bg-white">
+            {getFilteredCategoryProducts(16, 20).map(product => (
+              <Link key={product.id} to={product.link || "#"} className="space-y-[16px]">
+                <div className="flex justify-center">
+                  <img className="h-[261px] w-[261px] object-contain" src={product.image} alt={product.name} />
                 </div>
-                <div className='text-[#4A4A4A] text-[12px]'>
-                  <p className='text-[#147A63] font-extrabold'>GLAD2GLOW</p>
-                  <p>Yuja Symwhite 377 Dark Spot...</p>
-                  <p>Rp49.000 - Rp55.000</p>
-                </div>
-              </Link>
-              <Link to={'/Produk/Serum/Deskripsi'} className='space-y-[16px] '>
-                <div className='flex justify-center'>
-                  <img className=' h-[261px] w-[261px] object-contain' src="assets/images/niveaser.png" alt="NIVEA" />
-                </div>
-                <div className='text-[#4A4A4A] text-[12px]'>
-                  <p className='text-[#147A63] font-extrabold'>NIVEA</p>
-                  <p>Luminous 630 Spotclear Intensive</p>
-                  <p>Rp335.000 - Rp350.000</p>
+                <div className="text-[#4A4A4A] text-[12px]">
+                  <p className='text-[#147A63] font-extrabold'>{product.name}</p>
+                  <p>{product.jenis}</p>
+                  <p>{product.price}</p>
                 </div>
               </Link>
-              <Link to={'/Produk/Serum/Deskripsi'} className='space-y-[16px] '>
-                <div className='flex justify-center'>
-                  <img className=' h-[261px] w-[261px] object-contain' src="assets/images/somethincser.png" alt="SOMETHINC" />
-                </div>
-                <div className='text-[#4A4A4A] text-[12px]'>
-                  <p className='text-[#147A63] font-extrabold'>SOMETHINC</p>
-                  <p>Calm Down! Skinpair Barrier</p>
-                  <p>Rp139.000 - Rp145.000</p>
-                </div>
-              </Link>
-              <Link to={'/Produk/Serum/Deskripsi'} className='space-y-[16px] '>
-                <div className='flex justify-center'>
-                  <img className=' h-[261px] w-[261px] object-contain' src="assets/images/firstlabser.png" alt="FIRSTLAB" />
-                </div>
-                <div className='text-[#4A4A4A] text-[12px]'>
-                  <p className='text-[#147A63] font-extrabold'>FIRSTLAB</p>
-                  <p>Probiotic Barrier Ampoule</p>
-                  <p>Rp283.000 - Rp300.000</p>
-                </div>
-              </Link>
-              <Link to={'/Produk/Serum/Deskripsi'} className='space-y-[16px] '>
-                <div className='flex justify-center'>
-                  <img className=' h-[261px] w-[261px] object-contain' src="assets/images/jarkeenser.png" alt="JARKEEN" />
-                </div>
-                <div className='text-[#4A4A4A] text-[12px]'>
-                  <p className='text-[#147A63] font-extrabold'>JARKEEN</p>
-                  <p>Vit C Booster Serum</p>
-                  <p>Rp150.000 - Rp177.000</p>
-                </div>
-              </Link>
+            ))}
           </div>
         </section>
+
         {/* Section Sunscreen */}
         <section>
           <div className='flex justify-between px-[120px] py-[6px] bg-[#E3F2ED]'>
-            <p className='text-[#4A4A4A] text-[24px] font-bold'>Sunscreen </p>
+            <p className='text-[#4A4A4A] text-[24px] font-bold'>Sunscreen</p>
             <Link to={'/Produk/Sunscreen'} className='flex items-center font-bold text-[13px]'>Selengkapnya <IoMdArrowDropright className='text-3xl'/></Link>
           </div>
-        </section>
-        <section>
-          <div className='grid grid-cols-5 gap-x-[61px] gap-y-[10px] px-[120px]   py-[51px] bg-white'>
-              <Link to={'/Produk/Sunscreen/Deskripsi'} className='space-y-[16px] '>
-                <div className='flex justify-center'>
-                  <img className=' h-[261px] w-[261px] object-contain' src="assets/images/azariness.png" alt="AZARINE" />
+          <div className="grid grid-cols-5 gap-x-[61px] gap-y-[10px] px-[120px] py-[51px] bg-white">
+            {getFilteredCategoryProducts(21, 25).map(product => (
+              <Link key={product.id} to={product.link || "#"} className="space-y-[16px]">
+                <div className="flex justify-center">
+                  <img className="h-[261px] w-[261px] object-contain" src={product.image} alt={product.name} />
                 </div>
-                <div className='text-[#4A4A4A] text-[12px]'>
-                  <p className='text-[#147A63] font-extrabold'>AZARINE</p>
-                  <p>Hydracool Ceraspray Sunscreen.</p>
-                  <p>Rp65.000 - Rp71.000</p>
-                </div>
-              </Link>
-              <Link to={'/Produk/Sunscreen/Deskripsi'} className='space-y-[16px] '>
-                <div className='flex justify-center'>
-                  <img className=' h-[261px] w-[261px] object-contain' src="assets/images/bioress.png" alt="BIORE" />
-                </div>
-                <div className='text-[#4A4A4A] text-[12px]'>
-                  <p className='text-[#147A63] font-extrabold'>BIORE</p>
-                  <p>UV Fresh & Bright Instant Cover...</p>
-                  <p>Rp38.000 - Rp41.000</p>
+                <div className="text-[#4A4A4A] text-[12px]">
+                  <p className='text-[#147A63] font-extrabold'>{product.name}</p>
+                  <p>{product.jenis}</p>
+                  <p>{product.price}</p>
                 </div>
               </Link>
-              <Link to={'/Produk/Sunscreen/Deskripsi'} className='space-y-[16px] '>
-                <div className='flex justify-center'>
-                  <img className=' h-[261px] w-[261px] object-contain' src="assets/images/eminass.png" alt="EMINA" />
-                </div>
-                <div className='text-[#4A4A4A] text-[12px]'>
-                  <p className='text-[#147A63] font-extrabold'>EMINA</p>
-                  <p>Skin Buddy Sun Protection...</p>
-                  <p>Rp38.000 - Rp42.000</p>
-                </div>
-              </Link>
-              <Link to={'/Produk/Sunscreen/Deskripsi'} className='space-y-[16px] '>
-                <div className='flex justify-center'>
-                  <img className=' h-[261px] w-[261px] object-contain' src="assets/images/truess.png" alt="TRUE TO SKIN" />
-                </div>
-                <div className='text-[#4A4A4A] text-[12px]'>
-                  <p className='text-[#147A63] font-extrabold'>TRUE TO SKIN</p>
-                  <p>Sunfriends Soothing Sunscreen</p>
-                  <p>Rp78.000 - Rp83.000</p>
-                </div>
-              </Link>
-              <Link to={'/Produk/Sunscreen/Deskripsi'} className='space-y-[16px] '>
-                <div className='flex justify-center'>
-                  <img className=' h-[261px] w-[261px] object-contain' src="assets/images/wardahss.png" alt="WARDAH" />
-                </div>
-                <div className='text-[#4A4A4A] text-[12px]'>
-                  <p className='text-[#147A63] font-extrabold'>WARDAH</p>
-                  <p>UV Shield Aqua Fresh Essence...</p>
-                  <p>Rp61.000 - Rp66.000</p>
-                </div>
-              </Link>
+            ))}
           </div>
         </section>
+
         {/* Section Masker */}
         <section>
           <div className='flex justify-between px-[120px] py-[6px] bg-[#E3F2ED]'>
-            <p className='text-[#4A4A4A] text-[24px] font-bold'>Masker </p>
+            <p className='text-[#4A4A4A] text-[24px] font-bold'>Masker</p>
             <Link to={'/Produk/Masker'} className='flex items-center font-bold text-[13px]'>Selengkapnya <IoMdArrowDropright className='text-3xl'/></Link>
           </div>
-        </section>
-        <section>
-          <div className='grid grid-cols-5 gap-x-[61px] gap-y-[10px] px-[120px]   py-[51px] bg-white'>
-              <Link to={'/Produk/Masker/Deskripsi'} className='space-y-[16px] '>
-                <div className='flex justify-center'>
-                  <img className=' h-[261px] w-[261px] object-contain' src="assets/images/skintificmask.png" alt="SKINTIFIC" />
+          <div className="grid grid-cols-5 gap-x-[61px] gap-y-[10px] px-[120px] py-[51px] bg-white">
+            {getFilteredCategoryProducts(26, 30).map(product => (
+              <Link key={product.id} to={product.link || "#"} className="space-y-[16px]">
+                <div className="flex justify-center">
+                  <img className="h-[261px] w-[261px] object-contain" src={product.image} alt={product.name} />
                 </div>
-                <div className='text-[#4A4A4A] text-[12px]'>
-                  <p className='text-[#147A63] font-extrabold'>SKINTIFIC</p>
-                  <p>Niacinamide Bright Boost Clay.</p>
-                  <p>Rp110.000 - Rp118.000</p>
-                </div>
-              </Link>
-              <Link to={'/Produk/Masker/Deskripsi'} className='space-y-[16px] '>
-                <div className='flex justify-center'>
-                  <img className=' h-[261px] w-[261px] object-contain' src="assets/images/hadalabomask.png" alt="HADA LABO" />
-                </div>
-                <div className='text-[#4A4A4A] text-[12px]'>
-                  <p className='text-[#147A63] font-extrabold'>HADA LABO</p>
-                  <p>Gokujyun Alpha Ultimate</p>
-                  <p>Rp95.000 - Rp103.000</p>
+                <div className="text-[#4A4A4A] text-[12px]">
+                  <p className='text-[#147A63] font-extrabold'>{product.name}</p>
+                  <p>{product.jenis}</p>
+                  <p>{product.price}</p>
                 </div>
               </Link>
-              <Link to={'/Produk/Masker/Deskripsi'} className='space-y-[16px] '>
-                <div className='flex justify-center'>
-                  <img className=' h-[261px] w-[261px] object-contain' src="assets/images/banobagimask.png" alt="BANOBAGI" />
-                </div>
-                <div className='text-[#4A4A4A] text-[12px]'>
-                  <p className='text-[#147A63] font-extrabold'>BANOBAGI</p>
-                  <p>Vita Genic Jelly Mask Relaxing</p>
-                  <p>Rp14.000 - Rp20.000</p>
-                </div>
-              </Link>
-              <Link to={'/Produk/Masker/Deskripsi'} className='space-y-[16px] '>
-                <div className='flex justify-center'>
-                  <img className=' h-[261px] w-[261px] object-contain' src="assets/images/senkamask.png" alt="SENKA" />
-                </div>
-                <div className='text-[#4A4A4A] text-[12px]'>
-                  <p className='text-[#147A63] font-extrabold'>SENKA</p>
-                  <p>Perfect Aqua Bouncy Mask</p>
-                  <p>Rp31.000 - Rp33.000</p>
-                </div>
-              </Link>
-              <Link to={'/Produk/Masker/Deskripsi'} className='space-y-[16px] '>
-                <div className='flex justify-center'>
-                  <img className=' h-[261px] w-[261px] object-contain' src="assets/images/lacocomask.png" alt="LACOCO" />
-                </div>
-                <div className='text-[#4A4A4A] text-[12px]'>
-                  <p className='text-[#147A63] font-extrabold'>LACOCO</p>
-                  <p>Watermelon Glow Sheet Mask</p>
-                  <p>Rp150.000 - Rp156.000</p>
-                </div>
-              </Link>
+            ))}
           </div>
         </section>
       </div>
 
-      <footer className="aboutus-footer">
-        <div className="footer-separator"></div>
-        <div className="footer-container">
-          <div className="footer-logo">
-            <img src="assets/images/logobesar.svg" alt="Logo Ayune" />
-          </div>
-          <div className="footer-content">
-            <div className="customer-care">
-              <h3>Layanan Pelanggan</h3>
-              <p>Whatsapp: +62-851-6564-4356</p>
-              <p>Instagram: @ayunneconsultation</p>
-              <p>Email: ayunneconsultation@gmail.com</p>
-              <p>
-                <strong>Jam operasional:</strong><br />
-                Senin-Jumat: 10:00 - 21:00 WIB<br />
-                Sabtu: 10:00 - 17:00 WIB
-              </p>
-            </div>
-            <div className="account">
-              <h3>Akun Saya</h3>
-              <p><Link to="/profil">Profil</Link></p>
-              <p><Link to="/signup">Daftar</Link></p>
-              <p><Link to="/Login">Masuk</Link></p>
-            </div>
-            <div className="social-media">
-              <h3>Ikuti Kami:</h3>
-              <div className="social-icons">
-                <a href="#"><img src="assets/images/instagram.png" alt="Instagram" /></a>
-                <a href="#"><img src="assets/images/twt.png" alt="Twitter" /></a>
-                <a href="#"><img src="assets/images/yt.png" alt="YouTube" /></a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="footer-bottom">
-          <p>©AYUNNE, 2024. ALL RIGHTS RESERVED</p>
-        </div>
-      </footer>
+      <div className="footer-separator"></div>
+      {/* Footer */}
+      <Footer />
     </div>
-  )
+  );
 }
 
-export default Produk
+export default Produk;

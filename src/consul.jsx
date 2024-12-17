@@ -1,57 +1,50 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import './file_css/consul.css'; // Pastikan path CSS benar
+import React, { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useSkinProblem } from "./context/SkinProblemContext"; // Import Context
+import Header from "./components/HeaderAfterLogin";
+import Footer from "./components/Footer";
+import "./file_css/consul.css";
 
 const Consul = () => {
-  const [showPopup, setShowPopup] = useState(false); // State untuk pop-up pertama
-  const [showSecondPopup, setShowSecondPopup] = useState(false); // State untuk pop-up kedua
-  const [rating, setRating] = useState(0); // State untuk menyimpan rating
+  const [showPopup, setShowPopup] = useState(false);
+  const [showSecondPopup, setShowSecondPopup] = useState(false);
 
   const navigate = useNavigate();
+  const location = useLocation();
+  const { expert } = location.state || {};
+  const { setSkinType, setSkinProblem, setAge } = useSkinProblem();
 
-  const togglePopup = () => {
-    setShowPopup(!showPopup); // Ubah state showPopup
+  const [localSkinType, setLocalSkinType] = useState("");
+  const [localSkinProblem, setLocalSkinProblem] = useState("");
+  const [localAge, setLocalAge] = useState("");
+
+
+  console.log("Received Expert:", expert);
+
+  // Function untuk menangkap perubahan input "Masalah Kulit"
+  const handleSkinProblemChange = (e) => {
+    setSkinProblem(e.target.value); // Simpan ke Context API
   };
 
-  const handleStarClick = (index) => {
-    setRating(index + 1); // Set rating berdasarkan bintang yang diklik
-  };
+  const togglePopup = () => setShowPopup(!showPopup);
 
   const handleUploadClick = () => {
-    setShowPopup(false); // Tutup pop-up pertama
-    setShowSecondPopup(true); // Buka pop-up kedua
+    setSkinType(localSkinType);
+    setSkinProblem(localSkinProblem);
+    setAge(localAge);
+    setShowPopup(false);
+    setShowSecondPopup(true);
   };
 
   const handleSecondPopupClose = () => {
-    setShowSecondPopup(false); // Tutup pop-up kedua
-
-    navigate("/Recom"); // Navigasi ke halaman rekomendasi
-  };
-
-  const handleLogout = () => {
-    navigate('/'); // Navigasi ke halaman utama
+    setShowSecondPopup(false);
+    navigate("/Recom"); // Arahkan ke halaman Recom
   };
 
   return (
     <div className="consul-page-container">
-      <header>
-        <div className="logo">
-          <img src="assets/images/logobesar.svg" alt="Logo Ayune" />
-        </div>
-        <nav>
-          <ul>
-            <li><Link to="/HomeAfterLogin">BERANDA</Link></li>
-            <li><Link to="/AboutUs_Login">TENTANG KAMI</Link></li>
-            <li><Link to="/Produk">PRODUK</Link></li>
-            <li><Link to="/Ahli">KONSULTASI</Link></li>
-          </ul>
-        </nav>
-        <div className="auth-buttons">
-          <Link to="/profil"><button>Ayyunie</button></Link>
-        </div>
-      </header>
+      <Header />
 
-      {/* Content */}
       <div className="header-divider">
         <span className="header-divider-text">Konsultasi</span>
       </div>
@@ -60,49 +53,81 @@ const Consul = () => {
         <section className="consultation">
           <div className="chat-section">
             <div className="chat-box">
-              {/* Chat messages will be here */}
               <img src="assets/images/chat.png" alt="" />
             </div>
             <div className="input-box">
               <input type="text" placeholder="Type here..." />
               <div id="cam-button">
-                <button type="button"><img src="assets/images/cam.png" alt="Camera" /></button>
+                <button type="button">
+                  <img src="assets/images/cam.png" alt="Camera" />
+                </button>
               </div>
-              <button type="button"><img src="assets/images/send.png" alt="Send" /></button>
+              <button type="button">
+                <img src="assets/images/send.png" alt="Send" />
+              </button>
             </div>
           </div>
 
-          {/* Doctor Profile Section */}
+          {/* Expert Profile Section */}
           <aside className="profile-section">
             <div className="doctor-profile">
-              <h1>Profile Dokter</h1>
-              <img src="assets/images/expert2.png" alt="Dr. Emy Kusumaningsih" />
-              <h2>Dr. Emy Kusumaningsih, Sp.DV</h2>
-              <h6>Dokter Spesialis Kulit</h6>
-              <br />
-              <p>Beliau merupakan dokter spesialis dermatovenereologi estetika kulit yang sudah lama bergabung di klinik kecantikan, tentunya pengalaman beliau sudah banyak tentang masalah kulit yang sering dialami oleh kebanyakan orang </p>
+              <h1>Profil Dokter</h1>
+              {expert ? (
+                <div>
+                  <img src={expert.imageUrl} alt={expert.name} />
+                  <h2 className='text-[#4A4A4A] text-[24px] font-bold'>{expert.name}</h2>
+                  <h6>{expert.specialty}</h6>
+                  <p>{expert.description}</p>
+                </div>
+              ) : (
+                <p>Dokter belum dipilih. Silakan pilih dokter di halaman sebelumnya.</p>
+              )}
             </div>
-            <br />
+
             <div className="skin-problems">
               <h1>Masalah Kulit</h1>
-              <form action="recommendations.html" method="GET">
+              <form>
                 <label htmlFor="skin-type">Tipe Kulit</label>
-                <select name="skin-type" id="skin-type">
+                <select
+                  id="skin-type"
+                  value={localSkinType}
+                  onChange={(e) => setLocalSkinType(e.target.value)}
+                >
                   <option value="">Pilih jenis kulit...</option>
-                  <option value="normal">Kulit Normal</option>
-                  <option value="oily">Kulit Berminyak</option>
-                  <option value="dry">Kulit Kering</option>
-                  <option value="sensitive">Kulit Sensitif</option>
-                  <option value="combination">Kulit Kombinasi</option>
+                  <option value="Normal">Kulit Normal</option>
+                  <option value="Berminyak">Kulit Berminyak</option>
+                  <option value="Kering">Kulit Kering</option>
+                  <option value="Sensitif">Kulit Sensitif</option>
+                  <option value="Kombinasi">Kulit Kombinasi</option>
                 </select>
 
-                <label htmlFor="skin-concerns">Kondisi Kulit:</label>
-                <textarea name="skin-concerns" id="skin-concerns" placeholder="Masukkan Kondisi Kulit Anda sesuai dengan hasil Konsultasi"></textarea>
+                <label htmlFor="skin-problem">Masalah Kulit</label>
+                <select
+                  id="skin-problem"
+                  value={localSkinProblem}
+                  onChange={(e) => setLocalSkinProblem(e.target.value)}
+                >
+                  <option value="">Pilih masalah kulit...</option>
+                  <option value="Jerawat & Komedo">Jerawat & Komedo</option>
+                  <option value="Penuaan">Penuaan</option>
+                  <option value="Pigmentasi">Pigmentasi</option>
+                  <option value="Kering & Sensitif">Kering & Sensitif</option>
+                  <option value="Berminyak">Berminyak</option>
+                  <option value="Kelamin">Kelamin</option>
+                  <option value="Warna kulit">Warna Kulit</option>
+                </select>
 
-                <label htmlFor="age">Usia:</label>
-                <input type="text" id="age" placeholder="Masukkan Usia" />
+                <label htmlFor="age">Usia</label>
+                <input
+                  type="number"
+                  id="age"
+                  value={localAge}
+                  onChange={(e) => setLocalAge(e.target.value)}
+                />
 
-                <button type="button" onClick={togglePopup}>Rekomendasi</button>
+                <button type="button" onClick={togglePopup}>
+                  Rekomendasi
+                </button>
               </form>
             </div>
           </aside>
@@ -115,20 +140,30 @@ const Consul = () => {
           <div className="popup-content-unggah">
             <div className="popup-header">Berikan ulasan Dokter lalu dapatkan koin</div>
             <div className="stars" id="starRating">
-                <input type="radio" name="star" id="star1"/><label for="star1">★</label>
-                <input type="radio" name="star" id="star2"/><label for="star2">★</label>
-                <input type="radio" name="star" id="star3"/><label for="star3">★</label>
-                <input type="radio" name="star" id="star4"/><label for="star4">★</label>
-                <input type="radio" name="star" id="star5"/><label for="star5">★</label>
+              <input type="radio" name="star" id="star1" />
+              <label htmlFor="star1">★</label>
+              <input type="radio" name="star" id="star2" />
+              <label htmlFor="star2">★</label>
+              <input type="radio" name="star" id="star3" />
+              <label htmlFor="star3">★</label>
+              <input type="radio" name="star" id="star4" />
+              <label htmlFor="star4">★</label>
+              <input type="radio" name="star" id="star5" />
+              <label htmlFor="star5">★</label>
             </div>
             <div className="tulis">
               <p>Tuliskan ulasan Anda (opsional*)</p>
             </div>
             <div>
-              <textarea className="textarea" placeholder="Tambahkan ulasan tertulis jika anda ingin memberikan masukan"></textarea>
+              <textarea
+                className="textarea"
+                placeholder="Tambahkan ulasan tertulis jika anda ingin memberikan masukan"
+              ></textarea>
             </div>
             <div className="popup-button-container">
-              <button className="unggah-btn" onClick={handleUploadClick}>Unggah</button>
+              <button className="unggah-btn" onClick={handleUploadClick}>
+                Unggah
+              </button>
             </div>
           </div>
         </div>
@@ -139,55 +174,19 @@ const Consul = () => {
         <div id="secondPopup" className="popup-overlay">
           <div className="popup-content">
             <div className="popup-header">Ulasan berhasil disimpan</div>
-              <p className="selamat">SELAMAT!!</p>
-              <p className="koin">500 KOIN</p>
-              <p className="liat">Koin dapat dilihat pada halaman profil.</p>
+            <p className="selamat">SELAMAT!!</p>
+            <p className="koin">500 KOIN</p>
+            <p className="liat">Koin dapat dilihat pada halaman profil.</p>
             <div className="popup-button-container">
-              <button className="rekom-btn" onClick={handleSecondPopupClose}>Rekomendasi</button>
+              <button className="rekom-btn" onClick={handleSecondPopupClose}>
+                Rekomendasi
+              </button>
             </div>
           </div>
         </div>
       )}
-
-      {/* Footer */}
       <div className="footer-separator"></div>
-      <footer className="aboutus-footer">
-        <div className="footer-container">
-          <div className="footer-logo">
-            <img src="assets/images/logobesar.svg" alt="Logo Ayune" />
-          </div>
-          <div className="footer-content">
-            <div className="customer-care">
-              <h3>Layanan Pelanggan</h3>
-              <p>Whatsapp: +62-851-6564-4356</p>
-              <p>Instagram: @ayunneconsultation</p>
-              <p>Email: ayunneconsultation@gmail.com</p>
-              <p>
-                <strong>Jam operasional:</strong><br />
-                Senin-Jumat: 10:00 - 21:00 WIB<br />
-                Sabtu: 10:00 - 17:00 WIB
-              </p>
-            </div>
-            <div className="account">
-              <h3>Akun Saya</h3>
-              <p><Link to="/profil">Profil</Link></p>
-              <p><Link to="/signup">Daftar</Link></p>
-              <p><Link to="/login">Masuk</Link></p>
-            </div>
-            <div className="social-media">
-              <h3>Ikuti Kami:</h3>
-              <div className="social-icons">
-                <a href="#"><img src="assets/images/instagram.png" alt="Instagram" /></a>
-                <a href="#"><img src="assets/images/twt.png" alt="Twitter" /></a>
-                <a href="#"><img src="assets/images/yt.png" alt="YouTube" /></a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="footer-bottom">
-          <p>©AYUNNE, 2024. ALL RIGHTS RESERVED</p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 };

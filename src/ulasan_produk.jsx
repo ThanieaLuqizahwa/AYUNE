@@ -1,26 +1,26 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import './file_css/ulasan_produk.css'; // Make sure the CSS path is correct
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import Header from "./components/HeaderAfterLogin";
+import Footer from "./components/Footer";
+import './file_css/ulasan_produk.css';
 
-const ulasan_produk = () => {
+const UlasanProduk = () => {
+  const [showPopup, setShowPopup] = useState(false);
+  const navigate = useNavigate();
+
+  const handleUploadClick = () => {
+    setShowPopup(true); // Tampilkan popup ketika tombol di-klik
+  };
+
+  const handlePopupClose = () => {
+    setShowPopup(false); // Sembunyikan popup
+    navigate("/HomeAfterLogin"); // Arahkan ke halaman beranda setelah popup ditutup
+  };
+
   return (
     <div className="ulasan-produk-page">
-      <header>
-        <div className="logo">
-          <img src="assets/images/logobesar.svg" alt="Logo Ayune" />
-        </div>
-        <nav>
-          <ul>
-            <li><Link to="/HomeAfterLogin">BERANDA</Link></li>
-            <li><Link to="/AboutUs_Login">TENTANG KAMI</Link></li>
-            <li><Link to="/Produk">PRODUK</Link></li>
-            <li><Link to="/Ahli">KONSULTASI</Link></li>
-          </ul>
-        </nav>
-        <div className="auth-buttons">
-        <Link to="/profil"><button>Ayyunie</button></Link>
-        </div>
-      </header>
+      {/* header */}
+      <Header />
 
       {/* content */}
       <main>
@@ -31,14 +31,14 @@ const ulasan_produk = () => {
         <section class="form-section">
             <label>Dimana anda membeli produk tersebut?</label>
             <div class="options">
-                <button class="option" onclick="selectOption(this)">Online</button>
-                <button class="option" onclick="selectOption(this)">Offline</button>
-                <button class="option" onclick="selectOption(this)">Lainnya</button>
+                <button class="option" onClick="selectOption(this)">Online</button>
+                <button class="option" onClick="selectOption(this)">Offline</button>
+                <button class="option" onClick="selectOption(this)">Lainnya</button>
             </div>
             <label for="review">Tuliskan ulasan anda</label>
             <textarea id="review" placeholder="Beritahu kepada pengguna lain bagaimana pengalaman anda menggunakan produk ini, bagaimana efek nya? ..."></textarea>
             <label>Berikan bintang</label>
-            <div class="stars" id="starRating">
+            <div className="stars" id="starRating">
                 <input type="radio" name="star" id="star1"/><label for="star1">★</label>
                 <input type="radio" name="star" id="star2"/><label for="star2">★</label>
                 <input type="radio" name="star" id="star3"/><label for="star3">★</label>
@@ -47,69 +47,35 @@ const ulasan_produk = () => {
             </div>
 
             <label>Apakah anda merekomendasikan produk ini?</label>
-            <div class="recommend">
-                <button class="option" onclick="selectOption(this)">Ya</button>
-                <button class="option" onclick="selectOption(this)">Tidak</button>
-            </div>
-
-            <button class="submit-button" onclick="showsuccessPopup()">Unggah</button>
+            <div className="recommend">
+            <button className="option">Ya</button>
+            <button className="option">Tidak</button>
+          </div>
+          <button className="submit-button" onClick={handleUploadClick}>Unggah</button>
         </section>
         </div>
     </main>
 
-    <div id="popupOverlay" class="popup-overlay"></div>
-
-    {/* <!-- Pop-up pemberitahuan 10 koin --> */}
-    <div id="successPopup" class="popup">
-        <div class="popup-content">
-            <h3>SELAMAT!!</h3>
-            <p>Anda mendapatkan <strong>10 KOIN</strong></p>
-            <p>Koin dapat dilihat pada halaman profil.</p>
-            <button class="close-btn" onclick="BacktoProduct()">Tutup</button>
+     {/* Popup */}
+     {showPopup && (
+        <div className="popup-overlay">
+          <div className="popup-content">
+            <h3 className="popup-header">Ulasan berhasil disimpan</h3>
+            <p className="selamat">SELAMAT!!</p>
+            <p className="koin">500 KOIN</p>
+            <p className="liat">Koin dapat dilihat pada halaman profil.</p>
+            <div className="popup-button-container">
+            <button className="rekom-btn" onClick={handlePopupClose}>Tutup</button>
+            </div>
+          </div>
         </div>
-    </div>
+      )}
 
-      {/* footer */} 
       <div className="footer-separator"></div>
-    <footer className="aboutus-footer">
-        <div className="footer-container">
-          <div className="footer-logo">
-            <img src="assets/images/logobesar.svg" alt="Logo Ayune" />
-          </div>
-          <div className="footer-content">
-            <div className="customer-care">
-              <h3>Layanan Pelanggan</h3>
-              <p>Whatsapp: +62-851-6564-4356</p>
-              <p>Instagram: @ayunneconsultation</p>
-              <p>Email: ayunneconsultation@gmail.com</p>
-              <p>
-                <strong>Jam operasional:</strong><br />
-                Senin-Jumat: 10:00 - 21:00 WIB<br />
-                Sabtu: 10:00 - 17:00 WIB
-              </p>
-            </div>
-            <div className="account">
-              <h3>Akun Saya</h3>
-              <p><Link to="/profil">Profil</Link></p>
-              <p><Link to="/signup">Daftar</Link></p>
-              <p><Link to="/Login">Masuk</Link></p>
-            </div>
-            <div className="social-media">
-              <h3>Ikuti Kami:</h3>
-              <div className="social-icons">
-                <a href="#"><img src="assets/images/instagram.png" alt="Instagram" /></a>
-                <a href="#"><img src="assets/images/twt.png" alt="Twitter" /></a>
-                <a href="#"><img src="assets/images/yt.png" alt="YouTube" /></a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="footer-bottom">
-          <p>©AYUNNE, 2024. ALL RIGHTS RESERVED</p>
-        </div>
-      </footer>
+      {/* Footer */}
+      <Footer />
     </div>
   );
 };
 
-export default ulasan_produk;
+export default UlasanProduk;

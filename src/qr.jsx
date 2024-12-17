@@ -1,47 +1,32 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useLocation } from 'react-router-dom';
+import { usePayment } from "./PaymentContext";
+import Header from "./components/HeaderAfterLogin";
+import Footer from "./components/Footer";
 import "./file_css/qr.css";
 
-const qr = () => {
-  const [showPopup, setShowPopup] = useState(false); // State untuk mengontrol pop-up
-  const navigate = useNavigate();
+const QR = () => {
+  const [showPopup, setShowPopup] = useState(false); // State untuk mengontrol pop-up 
+  const navigate = useNavigate(); 
+  const location = useLocation(); 
+  const { expert } = location.state || {}; 
+  const { totalPayment } = usePayment(); // Ambil totalPayment dari Context
 
+  // Fungsi untuk menampilkan pop-up
   const handleCopyClick = () => {
     setShowPopup(true); // Menampilkan pop-up
   };
 
-  const handleRedirect = () => {
-    navigate("/consul"); // Mengarahkan ke halaman consul
+  // Fungsi untuk mengarahkan pengguna ke halaman konsultasi setelah pembayaran berhasil
+  const handleRedirect = () => { 
+    navigate("/consul", { state: { expert } }); // Mengarahkan ke halaman consul 
   };
 
   return (
     <div className="qr-page-container">
-      <header>
-        <div className="logo">
-          <img src="assets/images/logobesar.svg" alt="Logo Ayune" />
-        </div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/HomeAfterLogin">BERANDA</Link>
-            </li>
-            <li>
-              <Link to="/AboutUs_Login">TENTANG KAMI</Link>
-            </li>
-            <li>
-              <Link to="Produk">PRODUK</Link>
-            </li>
-            <li>
-              <Link to="/Ahli">KONSULTASI</Link>
-            </li>
-          </ul>
-        </nav>
-        <div className="auth-buttons">
-          <Link to="/profil">
-            <button>Ayyunie</button>
-          </Link>
-        </div>
-      </header>
+      {/* Header */}
+      <Header />
 
       <main>
         <div className="title">
@@ -54,8 +39,8 @@ const qr = () => {
             <h2>Pembayaranmu</h2>
           </div>
           <div className="grid-kanan">
-            <h4>Rp77.000</h4>
-            <h2>Rp77.000</h2>
+            <h4>Rp {totalPayment.toLocaleString()}</h4>
+            <h2>Rp {totalPayment.toLocaleString()}</h2>
           </div>
         </div>
 
@@ -64,12 +49,10 @@ const qr = () => {
           <p>
             Mohon pastikan Anda telah membaca dan memahami{" "}
             <a href="#">Syarat & Ketentuan</a> serta{" "}
-            <a href="#">Kebijakan Privasi</a> kami sebelum melanjutkan
-            pembayaran. Setelah pembayaran berhasil, transaksi dianggap final
-            dan tidak dapat dikembalikan.
+            <a href="#">Kebijakan Privasi</a> kami sebelum melanjutkan pembayaran. Setelah pembayaran berhasil, transaksi dianggap final dan tidak dapat dikembalikan.
           </p>
           <div className="qr-wrapper">
-            <img src="assets/images/qr.png" alt="QR Code" />
+            <img src="assets/images/qrfix.jpg" alt="QR Code" />
           </div>
           <p>SCAN UNTUK BAYAR</p>
           <button type="button" className="copy-btn" onClick={handleCopyClick}>
@@ -78,7 +61,7 @@ const qr = () => {
         </div>
       </main>
 
-      {/* Popup */}
+      {/* Popup: Menampilkan pop-up saat tombol "SALIN BARCODE" diklik */}
       {showPopup && (
         <div id="secondPopup" className="popup-overlay">
           <div className="popup-content">
@@ -99,60 +82,11 @@ const qr = () => {
         </div>
       )}
 
-      <footer className="aboutus-footer">
-        <div className="footer-separator"></div>
-        <div className="footer-container">
-          <div className="footer-logo">
-            <img src="assets/images/logobesar.svg" alt="Logo Ayune" />
-          </div>
-          <div className="footer-content">
-            <div className="customer-care">
-              <h3>Layanan Pelanggan</h3>
-              <p>Whatsapp: +62-851-6564-4356</p>
-              <p>Instagram: @ayunneconsultation</p>
-              <p>Email: ayunneconsultation@gmail.com</p>
-              <p>
-                <strong>Jam operasional:</strong>
-                <br />
-                Senin-Jumat: 10:00 - 21:00 WIB
-                <br />
-                Sabtu: 10:00 - 17:00 WIB
-              </p>
-            </div>
-            <div className="account">
-              <h3>Akun Saya</h3>
-              <p>
-                <Link to="/profil">Profil</Link>
-              </p>
-              <p>
-                <Link to="/signup">Daftar</Link>
-              </p>
-              <p>
-                <Link to="/Login">Masuk</Link>
-              </p>
-            </div>
-            <div className="social-media">
-              <h3>Ikuti Kami:</h3>
-              <div className="social-icons">
-                <a href="#">
-                  <img src="assets/images/instagram.png" alt="Instagram" />
-                </a>
-                <a href="#">
-                  <img src="assets/images/twt.png" alt="Twitter" />
-                </a>
-                <a href="#">
-                  <img src="assets/images/yt.png" alt="YouTube" />
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="footer-bottom">
-          <p>©AYUNNE, 2024. ALL RIGHTS RESERVED</p>
-        </div>
-      </footer>
+      <div className="footer-separator"></div>
+      {/* Footer */}
+      <Footer />
     </div>
   );
 };
 
-export default qr;
+export default QR;

@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
-import App from './App.jsx'; // Pastikan path ini sesuai dengan lokasi file Anda
-import './file_css/index.css'; // Mengimpor CSS
+import App from './App.jsx';
+import './file_css/index.css';
 
 // Membuat root React dan merender aplikasi dengan BrowserRouter
 ReactDOM.createRoot(document.getElementById('root')).render(
